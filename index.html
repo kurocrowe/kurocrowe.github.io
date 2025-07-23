@@ -157,7 +157,8 @@
     </section>
 
     <section class="info-section" id="planeGameSection">
-      <h2>Plane Click Game</h2>
+      <h2>Plane Game</h2>
+      <!-- <h2>Plane Click Game</h2>
       <p>Click the moving plane to increase your score!</p>
       <div id="gameArea">
         <div id="plane"></div>
@@ -165,7 +166,13 @@
       <p>Score: <span id="scoreBox">0</span></p>
       <button id="resetGame">Reset Game</button>
       <p><small>Press T to shrink plane, U to restore, A to rotate, B to stop rotation</small></p>
-    </section>
+    </section> -->
+   <canvas id="gameCanvas" width="800" height="500"></canvas>
+  <p class="instructions">
+    W = Lift, A = Brake, S = Dive, D = Thrust<br>
+    G = Toggle Gravity | Score increases with distance!
+  </p>
+  <button id="resetBtn">Reset Plane</button>
   </main>
 
   <script src="main.js"></script>
