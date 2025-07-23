@@ -459,10 +459,12 @@ p {
   display: inline-block;
 }
 canvas {
-  border: 2px solid #333;
+border: 2px solid #0c67ae;
+  border-radius: 8px;
   background-color: #d0e8ff;
   display: block;
-  margin: 20px auto;
+   margin: 1rem auto;
+     position: relative;
 }
 
 .instructions {
