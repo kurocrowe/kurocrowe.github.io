@@ -200,17 +200,15 @@ table th {
 }
 
 #plane {
-  width: 15vw;
-  aspect-ratio: 1 / 1; /* Ensures square shape */
+  position: absolute;
+  width: 60px;
+  height: 60px;
   background-image: url('plane.png');
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: center;
   transition: transform 0.2s ease, left 0.3s ease, top 0.3s ease;
-  position: absolute;
   cursor: pointer;
 }
-
 
 /* Plane flying sprite animation */
 @keyframes flyAnim {
