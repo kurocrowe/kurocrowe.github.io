@@ -252,7 +252,8 @@ const board = document.getElementById('board');
       rotationInterval = null;
     }
   });
- const toggle = document.getElementById("qr-toggle");
+
+  const toggle = document.getElementById("qr-toggle");
   const dropdown = document.getElementById("qr-dropdown");
 
   toggle.addEventListener("click", () => {
@@ -265,6 +266,8 @@ const board = document.getElementById('board');
       }, 6000);
     }
   });
+
+
 });
 
 

@@ -294,10 +294,10 @@ button {
     height: 180px;
   }
 
- #plane {
-    width: 18vw;
-    aspect-ratio: 1 / 1;
-    background-size: contain;
+  #plane {
+    width: 60px;
+    height: 60px;
+    background-size: 360px 60px;
   }
 }
 /* Styles for Types of Planes images */
