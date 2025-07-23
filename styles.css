@@ -396,3 +396,45 @@ button {
 .label:hover::after {
   opacity: 1;
 }
+.qr-dropdown-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+#qr-toggle {
+  padding: 10px 16px;
+  background-color: #0c67ae;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.qr-dropdown {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 220px;
+  transition: opacity 0.3s ease;
+}
+
+.qr-dropdown img {
+  width: 180px;
+  height: auto;
+  margin-top: 0.5rem;
+}
+
+.qr-dropdown.hidden {
+  display: none;
+}
