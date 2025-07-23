@@ -200,15 +200,17 @@ table th {
 }
 
 #plane {
-  position: absolute;
-  width: 60px;
-  height: 60px;
+  width: 15vw;
+  aspect-ratio: 1 / 1; /* Ensures square shape */
   background-image: url('plane.png');
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
   transition: transform 0.2s ease, left 0.3s ease, top 0.3s ease;
+  position: absolute;
   cursor: pointer;
 }
+
 
 /* Plane flying sprite animation */
 @keyframes flyAnim {
@@ -294,10 +296,10 @@ button {
     height: 180px;
   }
 
-  #plane {
-    width: 60px;
-    height: 60px;
-    background-size: 360px 60px;
+ #plane {
+    width: 18vw;
+    aspect-ratio: 1 / 1;
+    background-size: contain;
   }
 }
 /* Styles for Types of Planes images */
@@ -351,10 +353,27 @@ button {
 }
 
 /* Position labels over the image */
-.lift    { top: 10%;  left: 45%; }
-.thrust  { bottom: 20%; left: 20%; }
-.drag    { top: 20%;  right: 10%; }
-.weight  { bottom: 10%; left: 50%; }
+/* Position labels over the image - adjusted for better placement */
+/* Individual label positions */
+.lift {
+  top: 10%;
+  left: 48%;
+}
+
+.thrust {
+  top: 50%;
+  left: 15%;
+}
+
+.drag {
+  top: 40%;
+  right: 10%;
+}
+
+.weight {
+  bottom: 5%;
+  left: 48%;
+}
 
 /* Tooltip */
 .label::after {
