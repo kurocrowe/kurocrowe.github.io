@@ -438,3 +438,19 @@ button {
 .qr-dropdown.hidden {
   display: none;
 }
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+p {
+  font-size: 18px;
+}
+#sizeInfo {
+  margin-top: 20px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  display: inline-block;
+}
