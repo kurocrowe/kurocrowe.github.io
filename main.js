@@ -252,7 +252,22 @@ const board = document.getElementById('board');
       rotationInterval = null;
     }
   });
- 
+
+  const toggle = document.getElementById("qr-toggle");
+  const dropdown = document.getElementById("qr-dropdown");
+
+  toggle.addEventListener("click", () => {
+    dropdown.classList.toggle("hidden");
+
+    // Hide automatically after 6 seconds
+    if (!dropdown.classList.contains("hidden")) {
+      setTimeout(() => {
+        dropdown.classList.add("hidden");
+      }, 6000);
+    }
+  });
+
+
 });
 
 
