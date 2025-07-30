@@ -207,12 +207,14 @@ let gravityEnabled = true;
 let wind = 0.05;
 
 const plane = {
-  x: 100,
-  y: 250,
+ x: 150,
+  y: 200, // NOT near bottom; this keeps it suspended
   vx: 0,
   vy: 0,
+  angle: 0,
+  scale: 1,
   width: 60,
-  height: 40,
+  height: 40
 };
 
 let keys = {};
@@ -516,13 +518,20 @@ window.addEventListener("resize", reportWindowSize);
 setupMobileControls();
 function enableGameStart() {
   document.addEventListener('keydown', () => {
-    if (!started) started = true;
+    if (!started) {
+      started = true;
+     
+    }
   });
 
   document.addEventListener('touchstart', () => {
-    if (!started) started = true;
-  }, { passive: false });
+    if (!started) {
+      started = true;
+      
+    }
+  }, { passive: true });
 }
+
 
 enableGameStart();
 function resizeCanvas() {
