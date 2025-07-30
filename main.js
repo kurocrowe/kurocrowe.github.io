@@ -557,19 +557,30 @@ function resizeCanvas() {
   canvas.height = height;
 }
 
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas(); // Run once at start
-function shrinkPlane() {
-  plane.scale *= 0.9;
+// Button control for resizing and rotating plane
+const btnShrink = document.getElementById("btnShrink");
+const btnRotate = document.getElementById("btnRotate");
+const btnResize = document.getElementById("btnResize");
+
+if (btnShrink) {
+  btnShrink.addEventListener("click", function () {
+    planeScale *= 0.9;
+  });
 }
 
-function rotatePlane() {
-  plane.angle += Math.PI / 12; // 15°
+if (btnRotate) {
+  btnRotate.addEventListener("click", function () {
+    planeAngle += Math.PI / 12; // rotate 15°
+  });
 }
 
-function resizePlane() {
-  plane.scale = 1; // reset
+if (btnResize) {
+  btnResize.addEventListener("click", function () {
+    planeScale = 1;
+    planeAngle = 0;
+  });
 }
+
 
 });
 
