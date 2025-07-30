@@ -1,241 +1,84 @@
-document.addEventListener('DOMContentLoaded', function() {
-  // Hamburger menu toggle
-  var hamburger = document.getElementById('hamburger');
-  hamburger.addEventListener('click', function() {
-    document.body.classList.toggle('nav-open');
-  });
-  document.querySelector('.nav-logo').addEventListener('click', function() {
-    document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
-  });
+Sure! You're asking to **remove all arrow functions (`=>`)** from your code and convert them to traditional function expressions. Here's the updated version with `function` syntax used instead of arrow functions:
 
-  var sections = [
-    document.getElementById('howSection'),
-    document.getElementById('typesSection'),
-    document.getElementById('puzzleSection'),
-    document.getElementById('planeGameSection')
-  ];
+---
 
-  sections.forEach(function(section) {
-    section.style.display = 'none';
-  });
+### ✅ Updated Code (No Arrow Functions):
 
-  function showSectionWithEffect(section) {
-    if (!section) return;
-    section.style.display = 'block';
-    section.style.filter = 'blur(5px)';
-    section.style.opacity = '0';
-    section.style.transition = 'opacity 0.7s ease, filter 0.7s ease';
+```javascript
+for (let id in controls) {
+  const key = controls[id];
+  const btn = document.getElementById(id);
+  if (!btn) continue;
 
-    setTimeout(function() {
-      section.scrollIntoView({ behavior: 'smooth' });
-      section.style.filter = 'blur(0)';
-      section.style.opacity = '1';
-    }, 50);
-  }
+  btn.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    keys[key] = true;
+    if (!started) started = true;
+  }, { passive: false });
 
-  function hideAllSections() {
-    sections.forEach(function(s) {
-      s.style.display = 'none';
-    });
-  }
-
-  var scrollButtons = document.querySelectorAll('.scroll-down');
-  scrollButtons.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var parentSection = btn.closest('section');
-      var nextSection = null;
-
-      if (!parentSection) {
-        nextSection = sections[0];
-      } else {
-        var idx = sections.indexOf(parentSection);
-        if (idx !== -1 && idx < sections.length - 1) {
-          nextSection = sections[idx + 1];
-        }
-      }
-
-      if (nextSection) {
-        hideAllSections();
-        showSectionWithEffect(nextSection);
-      }
-    });
+  btn.addEventListener("touchend", function(e) {
+    e.preventDefault();
+    keys[key] = false;
   });
 
-  var navLinks = document.querySelectorAll('.nav-links a, #homeLink');
-  navLinks.forEach(function(link) {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      var href = this.getAttribute('href');
-      if (!href || href === '#') {
-        hideAllSections();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        var targetId = href.substring(1);
-        var targetSection = document.getElementById(targetId);
-        if (targetSection) {
-          hideAllSections();
-          showSectionWithEffect(targetSection);
-        }
-      }
-      document.body.classList.remove('nav-open');
-    });
+  btn.addEventListener("mousedown", function() {
+    keys[key] = true;
+    if (!started) started = true;
   });
 
-  window.toggleImage = function(id) {
-    var img = document.getElementById(id);
-    if (!img) return;
-    img.style.display = (img.style.display === 'block') ? 'none' : 'block';
-  };
+  btn.addEventListener("mouseup", function() {
+    keys[key] = false;
+  });
 
-  var quizForm = document.getElementById('quizForm');
-  if (quizForm) {
-    quizForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var q1 = document.querySelector('input[name="q1"]:checked');
-      var q2 = document.querySelector('input[name="q2"]:checked');
-      var score = 0;
-      if (q1 && q1.value === 'g700') score++;
-      if (q2 && q2.value === 'eurofighter') score++;
-      var result = document.getElementById('quizResult');
-      if (result) {
-        result.textContent = 'You got ' + score + ' / 2 correct!';
-      }
-    });
-  }
+  btn.addEventListener("mouseleave", function() {
+    keys[key] = false;
+  });
+}
 
-  const toggle = document.getElementById("qr-toggle");
-  const dropdown = document.getElementById("qr-dropdown");
+setupMobileControls();
 
-  toggle.addEventListener("click", function() {
-    dropdown.classList.toggle("hidden");
-    if (!dropdown.classList.contains("hidden")) {
-      setTimeout(function() {
-        dropdown.classList.add("hidden");
-      }, 6000);
+function enableGameStart() {
+  document.addEventListener('keydown', function() {
+    if (!started) {
+      started = true;
     }
   });
+}
 
-  const btnFS = document.querySelector("#btnFS");
-  const btnWS = document.querySelector("#btnWS");
-  const widthOutput = document.querySelector("#width");
-  const heightOutput = document.querySelector("#height");
+enableGameStart();
 
-  btnFS.addEventListener("click", enterFullscreen);
-  btnWS.addEventListener("click", exitFullscreen);
+function resizeCanvas() {
+  const canvas = document.getElementById("gameCanvas");
+  const ratio = 4 / 3;
+  const maxWidth = 800;
+  const margin = 20;
 
-  function enterFullscreen() {
-    const elem = document.documentElement;
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem.mozRequestFullScreen) {
-      elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) {
-      elem.msRequestFullscreen();
-    }
-  }
+  const width = Math.min(window.innerWidth - margin, maxWidth);
+  const height = width / ratio;
 
-  function exitFullscreen() {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    }
-  }
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
 
-  function reportWindowSize() {
-    widthOutput.textContent = window.innerWidth;
-    heightOutput.textContent = window.innerHeight;
-  }
+  canvas.width = width;
+  canvas.height = height;
+}
 
-  reportWindowSize();
-  window.addEventListener("resize", reportWindowSize);
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas(); // Run once at start
 
-  function setupMobileControls() {
-    const controls = {
-      btnUp: "w",
-      btnDown: "s",
-      btnLeft: "a",
-      btnRight: "d"
-    };
+function shrinkPlane() {
+  plane.scale *= 0.9;
+}
 
-    for (var id in controls) {
-      var key = controls[id];
-      var btn = document.getElementById(id);
-      if (!btn) continue;
+function rotatePlane() {
+  plane.angle += Math.PI / 12; // 15°
+}
 
-      btn.addEventListener("touchstart", function(e) {
-        e.preventDefault();
-        keys[this.dataset.key] = true;
-        if (!started) started = true;
-      }.bind({ dataset: { key: key } }), { passive: false });
+function resizePlane() {
+  plane.scale = 1; // reset
+}
+```
 
-      btn.addEventListener("touchend", function(e) {
-        e.preventDefault();
-        keys[this.dataset.key] = false;
-      }.bind({ dataset: { key: key } }));
+---
 
-      btn.addEventListener("mousedown", function() {
-        keys[this.dataset.key] = true;
-        if (!started) started = true;
-      }.bind({ dataset: { key: key } }));
-
-      btn.addEventListener("mouseup", function() {
-        keys[this.dataset.key] = false;
-      }.bind({ dataset: { key: key } }));
-
-      btn.addEventListener("mouseleave", function() {
-        keys[this.dataset.key] = false;
-      }.bind({ dataset: { key: key } }));
-    }
-  }
-
-  setupMobileControls();
-
-  function enableGameStart() {
-    document.addEventListener('keydown', function() {
-      if (!started) {
-        started = true;
-      }
-    });
-  }
-
-  enableGameStart();
-
-  function resizeCanvas() {
-    var canvas = document.getElementById("gameCanvas");
-    var ratio = 4 / 3;
-    var maxWidth = 800;
-    var margin = 20;
-
-    var width = Math.min(window.innerWidth - margin, maxWidth);
-    var height = width / ratio;
-
-    canvas.style.width = width + "px";
-    canvas.style.height = height + "px";
-
-    canvas.width = width;
-    canvas.height = height;
-  }
-
-  window.addEventListener("resize", resizeCanvas);
-  resizeCanvas();
-
-  function shrinkPlane() {
-    plane.scale *= 0.9;
-  }
-
-  function rotatePlane() {
-    plane.angle += Math.PI / 12;
-  }
-
-  function resizePlane() {
-    plane.scale = 1;
-  }
-
-});
+Let me know if you want all of this inside a `DOMContentLoaded` block, or if you need to remove `let` as well for older browser compatibility.
