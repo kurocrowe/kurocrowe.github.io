@@ -505,3 +505,30 @@ canvas {
   }
 }
 
+#mobile-plane-controls {
+  display: none;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+#mobile-plane-controls button {
+  margin: 0.3rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: 1px solid #0c67ae;
+  background-color: #f0faff;
+  color: #0c67ae;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#mobile-plane-controls button:hover {
+  background-color: #d0e8ff;
+}
+
+/* Show only on screens 768px wide or less */
+@media screen and (max-width: 768px) {
+  #mobile-plane-controls {
+    display: block;
+  }
+}
