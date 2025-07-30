@@ -543,6 +543,17 @@ function resizeCanvas() {
 
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas(); // Run once at start
+function shrinkPlane() {
+  plane.scale *= 0.9;
+}
+
+function rotatePlane() {
+  plane.angle += Math.PI / 12; // 15°
+}
+
+function resizePlane() {
+  plane.scale = 1; // reset
+}
 
 });
 
