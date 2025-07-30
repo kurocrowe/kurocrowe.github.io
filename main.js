@@ -193,67 +193,270 @@ const board = document.getElementById('board');
 
   createPuzzle();
 
-//   // PLANE GAME SETUP
-//  const plane = document.getElementById('plane');
-//   const scoreBox = document.getElementById('scoreBox');
-//   const resetBtn = document.getElementById('resetGame');
-//   let score = 0;
-//   let rotationInterval = null;
-//   let angle = 0;
-//   let originalScale = 1;
+  // PLANE GAME SETUP
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
 
-//   // Move plane randomly
-//   function movePlaneRandomly() {
-//     const gameArea = document.getElementById('gameArea');
-//     const maxX = gameArea.offsetWidth - plane.offsetWidth;
-//     const maxY = gameArea.offsetHeight - plane.offsetHeight;
-//     const randomX = Math.floor(Math.random() * maxX);
-//     const randomY = Math.floor(Math.random() * maxY);
-//     plane.style.left = randomX + 'px';
-//     plane.style.top = randomY + 'px';
-//   }
+const planeImg = new Image();
+planeImg.src = "plane.png";
 
-//   setInterval(movePlaneRandomly, 1000);
+const popSound = document.getElementById("popSound");
 
-//   // Click to score
-//   plane.addEventListener('click', function () {
-//     score++;
-//     scoreBox.textContent = score;
-//     new Audio('popsound.mp3').play();
-//   });
+let gravityStrength = 0.1; // lighter gravity
+let gravityEnabled = true;
+let wind = 0.05;
 
-//   // Reset button
-//   resetBtn.addEventListener('click', function () {
-//     score = 0;
-//     scoreBox.textContent = score;
-//   });
+const plane = {
+  x: 100,
+  y: 250,
+  vx: 0,
+  vy: 0,
+  width: 60,
+  height: 40,
+};
 
-//   // Key controls
-//   document.addEventListener('keydown', function (e) {
-//     if (e.key === 't' || e.key === 'T') {
-//       // Shrink
-//       originalScale = originalScale * 0.8;
-//       plane.style.transform = `scale(${originalScale}) rotate(${angle}deg)`;
-//     } else if (e.key === 'u' || e.key === 'U') {
-//       // Restore size
-//       originalScale = 1;
-//       plane.style.transform = `scale(1) rotate(${angle}deg)`;
-//     } else if (e.key === 'a' || e.key === 'A') {
-//       // Start rotating
-//       if (!rotationInterval) {
-//         rotationInterval = setInterval(function () {
-//           angle += 5;
-//           plane.style.transform = `scale(${originalScale}) rotate(${angle}deg)`;
-//         }, 50);
-//       }
-//     } else if (e.key === 'b' || e.key === 'B') {
-//       // Stop rotating
-//       clearInterval(rotationInterval);
-//       rotationInterval = null;
-//     }
-//   });
+let keys = {};
+function simulateKey(key, isDown) {
+  keys[key] = isDown;
+}
 
-  const toggle = document.getElementById("qr-toggle");
+function setupMobileControls() {
+  const map = {
+    btnUp: 'w',
+    btnDown: 's',
+    btnLeft: 'a',
+    btnRight: 'd'
+  };
+
+  Object.keys(map).forEach(id => {
+    const key = map[id];
+    const btn = document.getElementById(id);
+    if (!btn) return;
+
+    btn.addEventListener('touchstart', e => {
+      e.preventDefault();
+      simulateKey(key, true);
+    });
+
+    btn.addEventListener('touchend', e => {
+      e.preventDefault();
+      simulateKey(key, false);
+    });
+  });
+}
+
+setupMobileControls();
+
+let score = 0;
+let coins = [];
+let clouds = [];
+let gameOver = false;
+let started = false;
+
+// Visual transform states
+let planeAngle = 0;
+let planeScale = 1;
+
+function drawArrow(x, y, dx, dy, color, label) {
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x + dx, y + dy);
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  const angle = Math.atan2(dy, dx);
+  ctx.beginPath();
+  ctx.moveTo(x + dx, y + dy);
+  ctx.lineTo(x + dx - 10 * Math.cos(angle - 0.3), y + dy - 10 * Math.sin(angle - 0.3));
+  ctx.lineTo(x + dx - 10 * Math.cos(angle + 0.3), y + dy - 10 * Math.sin(angle + 0.3));
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
+
+  ctx.fillStyle = color;
+  ctx.font = "12px Arial";
+  ctx.fillText(label, x + dx + 5, y + dy + 5);
+}
+
+function spawnCloud() {
+  clouds.push({
+    x: canvas.width,
+    y: Math.random() * 300,
+    speed: 0.3 + Math.random() * 0.5
+  });
+}
+
+function spawnCoin() {
+  coins.push({
+    x: canvas.width,
+    y: 100 + Math.random() * 300,
+    radius: 10,
+    collected: false
+  });
+}
+
+function resetGame() {
+  plane.x = 100;
+  plane.y = 250;
+  plane.vx = 0;
+  plane.vy = 0;
+  score = 0;
+  coins = [];
+  clouds = [];
+  gameOver = false;
+  started = false;
+  planeAngle = 0;
+  planeScale = 1;
+}
+
+document.getElementById("resetBtn").addEventListener("click", resetGame);
+
+document.addEventListener("keydown", function(e) {
+  keys[e.key.toLowerCase()] = true;
+  if (!started) started = true;
+
+  if (e.key.toLowerCase() === "g") gravityEnabled = !gravityEnabled;
+
+  if (e.key === "1") {
+    planeScale = 0.8;
+  } else if (e.key === "2") {
+    planeAngle = 0.3;
+  } else if (e.key === "3") {
+    planeScale = 0.8;
+    planeAngle = -0.3;
+  } else if (e.key === "4") {
+    planeScale = 1;
+    planeAngle = 0;
+  }
+});
+
+document.addEventListener("keyup", function(e) {
+  keys[e.key.toLowerCase()] = false;
+});
+
+function updatePhysics() {
+  if (!started || gameOver) return;
+
+  if (keys["d"]) plane.vx += 0.2;
+  if (keys["a"]) plane.vx -= 0.1;
+  if (keys["w"]) plane.vy -= 0.2;
+  if (keys["s"]) plane.vy += 0.2;
+
+  if (gravityEnabled) plane.vy += gravityStrength;
+
+  plane.vx += wind;
+  plane.vx *= 0.99;
+  plane.vy *= 0.99;
+
+  plane.x += plane.vx;
+  plane.y += plane.vy;
+
+  if (plane.y > canvas.height) {
+    plane.y = canvas.height;
+    gameOver = true;
+  }
+  if (plane.y < 0) plane.y = 0;
+}
+
+function drawPlane() {
+  ctx.save();
+  ctx.translate(plane.x + plane.width / 2, plane.y + plane.height / 2);
+  ctx.rotate(planeAngle);
+  ctx.scale(planeScale, planeScale);
+  ctx.drawImage(planeImg, -plane.width / 2, -plane.height / 2, plane.width, plane.height);
+  ctx.restore();
+
+  const centerX = plane.x + plane.width / 2;
+  const centerY = plane.y + plane.height / 2;
+
+  drawArrow(centerX, centerY, 0, -40, "blue", "Lift");
+  drawArrow(centerX, centerY, 0, 40, "red", "Weight");
+  drawArrow(centerX, centerY, 40, 0, "green", "Thrust");
+  drawArrow(centerX, centerY, -30, 0, "orange", "Drag");
+}
+
+function drawCoins() {
+  for (var i = 0; i < coins.length; i++) {
+    var coin = coins[i];
+    if (!coin.collected) {
+      ctx.beginPath();
+      ctx.fillStyle = "gold";
+      ctx.arc(coin.x, coin.y, coin.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+}
+
+function drawClouds() {
+  ctx.fillStyle = "white";
+  for (var i = 0; i < clouds.length; i++) {
+    var cloud = clouds[i];
+    ctx.beginPath();
+    ctx.ellipse(cloud.x, cloud.y, 50, 20, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function updateCoins() {
+  const coinSpeed = 3; // fixed speed left
+  for (var i = 0; i < coins.length; i++) {
+    var coin = coins[i];
+    coin.x -= coinSpeed;
+    if (!coin.collected) {
+      var dx = coin.x - (plane.x + plane.width / 2);
+      var dy = coin.y - (plane.y + plane.height / 2);
+      if (Math.sqrt(dx * dx + dy * dy) < coin.radius + 20) {
+        coin.collected = true;
+        score += 10;
+        popSound.play().catch(function(err) {});
+      }
+    }
+  }
+}
+
+function updateClouds() {
+  const cloudSpeed = 1;
+  for (var i = 0; i < clouds.length; i++) {
+    clouds[i].x -= cloudSpeed;
+  }
+}
+
+function drawUI() {
+  ctx.fillStyle = "#222";
+  ctx.font = "18px Arial";
+  ctx.fillText("Score: " + score, 10, 20);
+  if (!started) {
+    ctx.fillText("Press any key to start", canvas.width / 2 - 100, canvas.height / 2);
+  }
+  if (gameOver) {
+    ctx.fillStyle = "red";
+    ctx.font = "30px Arial";
+    ctx.fillText("Game Over!", canvas.width / 2 - 80, canvas.height / 2);
+  }
+}
+
+function gameLoop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  updatePhysics();
+  updateCoins();
+  updateClouds();
+
+  drawClouds();
+  drawCoins();
+  drawPlane();
+  drawUI();
+
+  requestAnimationFrame(gameLoop);
+}
+
+setInterval(spawnCloud, 3000);
+setInterval(spawnCoin, 2000);
+
+resetGame();
+gameLoop();
+const toggle = document.getElementById("qr-toggle");
   const dropdown = document.getElementById("qr-dropdown");
 
   toggle.addEventListener("click", () => {
@@ -310,205 +513,7 @@ reportWindowSize();
 
 // Update on window resize
 window.addEventListener("resize", reportWindowSize);
-
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
-
-const planeImg = new Image();
-planeImg.src = "plane.png";
-
-const popSound = new Audio("popsound.mp3");
-
-let gravityOn = true;
-let windStrength = 0.05;
-
-let score = 0;
-let lastMilestone = 0;
-
-let plane = {
-  x: 100,
-  y: 250,
-  vx: 0,
-  vy: 0,
-  width: 80,
-  height: 40,
-  thrust: 0,
-  lift: 0,
-  drag: 0,
-  weight: 0.5
-};
-
-let keys = {};
-
-// Clouds
-let clouds = [];
-for (let i = 0; i < 5; i++) {
-  clouds.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * 200,
-    speed: 0.3 + Math.random() * 0.2,
-    size: 60 + Math.random() * 40
-  });
-}
-
-window.addEventListener("keydown", (e) => {
-  const key = e.key.toLowerCase();
-  keys[key] = true;
-
-  if (key === "g") {
-    gravityOn = !gravityOn;
-  }
+ 
+ 
 });
-
-window.addEventListener("keyup", (e) => {
-  keys[e.key.toLowerCase()] = false;
-});
-
-function updatePhysics() {
-  plane.thrust = keys["d"] ? 0.2 : 0;
- plane.lift = keys["w"] ? 0.6 : 0;  // increase lift
-plane.weight = 0.3;   
-  const brake = keys["a"] ? 0.1 : 0;
-  const dive = keys["s"] ? 0.2 : 0;
-
-  plane.drag = 0.05 * plane.vx + brake;
-
-  // Wind
-  plane.vx += windStrength;
-
-  // Forces
-  plane.vx += plane.thrust - plane.drag;
-  if (gravityOn) {
-    plane.vy += plane.weight - plane.lift + dive;
-  } else {
-    plane.vy += -plane.lift + dive;
-  }
-
-  plane.x += plane.vx;
-  plane.y += plane.vy;
-
-  // Ground / top
-  if (plane.y + plane.height > canvas.height) {
-    plane.y = canvas.height - plane.height;
-    plane.vy = 0;
-  }
-  if (plane.y < 0) {
-    plane.y = 0;
-    plane.vy = 0;
-  }
-
-  // Wrap horizontal
-  if (plane.x > canvas.width) plane.x = -plane.width;
-  if (plane.x < -plane.width) plane.x = canvas.width;
-
-  // Score: 1 point per frame of forward movement
-  score += plane.vx * 0.1;
-  if (score - lastMilestone >= 100) {
-    popSound.play();
-    lastMilestone += 100;
-  }
-}
-
-function updateClouds() {
-  for (let cloud of clouds) {
-    cloud.x -= cloud.speed;
-    if (cloud.x + cloud.size < 0) {
-      cloud.x = canvas.width + Math.random() * 200;
-      cloud.y = Math.random() * 200;
-    }
-  }
-}
-
-function drawClouds() {
-  ctx.fillStyle = "white";
-  for (let cloud of clouds) {
-    ctx.beginPath();
-    ctx.ellipse(cloud.x, cloud.y, cloud.size, cloud.size * 0.6, 0, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-
-function drawHUD() {
-  ctx.fillStyle = "black";
-  ctx.font = "16px sans-serif";
-  ctx.fillText(`Score: ${Math.floor(score)}`, 10, 60);
-  ctx.fillText(`Wind → ${windStrength.toFixed(2)}`, 10, 80);
-  ctx.fillText(`Gravity: ${gravityOn ? "On" : "Off"} (G to toggle)`, 10, 100);
-}
-
-function drawForces() {
-  ctx.font = "14px sans-serif";
-
-  // Thrust
-  ctx.strokeStyle = "red";
-  ctx.fillStyle = "red";
-  ctx.beginPath();
-  ctx.moveTo(plane.x, plane.y + plane.height / 2);
-  ctx.lineTo(plane.x - 40, plane.y + plane.height / 2);
-  ctx.stroke();
-  ctx.fillText("Thrust", plane.x - 60, plane.y + plane.height / 2 - 5);
-
-  // Drag
-  ctx.strokeStyle = "blue";
-  ctx.fillStyle = "blue";
-  ctx.beginPath();
-  ctx.moveTo(plane.x + plane.width, plane.y + plane.height / 2);
-  ctx.lineTo(plane.x + plane.width + 40, plane.y + plane.height / 2);
-  ctx.stroke();
-  ctx.fillText("Drag", plane.x + plane.width + 10, plane.y + plane.height / 2 - 5);
-
-  // Lift
-  ctx.strokeStyle = "green";
-  ctx.fillStyle = "green";
-  ctx.beginPath();
-  ctx.moveTo(plane.x + plane.width / 2, plane.y + plane.height / 2);
-  ctx.lineTo(plane.x + plane.width / 2, plane.y - 40);
-  ctx.stroke();
-  ctx.fillText("Lift", plane.x + plane.width / 2 + 5, plane.y - 25);
-
-  // Weight
-  if (gravityOn) {
-    ctx.strokeStyle = "orange";
-    ctx.fillStyle = "orange";
-    ctx.beginPath();
-    ctx.moveTo(plane.x + plane.width / 2, plane.y + plane.height / 2);
-    ctx.lineTo(plane.x + plane.width / 2, plane.y + plane.height / 2 + 40);
-    ctx.stroke();
-    ctx.fillText("Weight", plane.x + plane.width / 2 + 5, plane.y + plane.height / 2 + 50);
-  }
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawClouds();
-  ctx.drawImage(planeImg, plane.x, plane.y, plane.width, plane.height);
-  drawForces();
-  drawHUD();
-}
-
-function loop() {
-  updatePhysics();
-  updateClouds();
-  draw();
-  requestAnimationFrame(loop);
-}
-
-planeImg.onload = () => {
-  loop();
-};
-const resetBtn = document.getElementById("resetBtn");
-
-function resetGame() {
-  plane.x = 100;
-  plane.y = 250;
-  plane.vx = 0;
-  plane.vy = 0;
-  score = 0;
-  lastMilestone = 0;
-}
-
-resetBtn.addEventListener("click", resetGame);
-
-});
-
 

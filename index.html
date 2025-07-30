@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,6 +42,7 @@
     <p>Window inner width: <span id="width"></span> px</p>
     <p>Window inner height: <span id="height"></span> px</p>
   </div>
+
   <main>
     <section class="info-section" id="howSection">
       <h2>How Planes Work</h2>
@@ -158,21 +160,22 @@
 
     <section class="info-section" id="planeGameSection">
       <h2>Plane Game</h2>
-      <!-- <h2>Plane Click Game</h2>
-      <p>Click the moving plane to increase your score!</p>
-      <div id="gameArea">
-        <div id="plane"></div>
-      </div>
-      <p>Score: <span id="scoreBox">0</span></p>
-      <button id="resetGame">Reset Game</button>
-      <p><small>Press T to shrink plane, U to restore, A to rotate, B to stop rotation</small></p>
-    </section> -->
-   <canvas id="gameCanvas" width="800" height="500"></canvas>
+      <canvas id="gameCanvas" width="800" height="500"><audio id="popSound" src="popsound.mp3" preload="auto"></audio></canvas>
+      <div class="mobile-controls">
+  <button id="btnUp">↑</button>
+  <div class="mobile-row">
+    <button id="btnLeft">←</button>
+    <button id="btnDown">↓</button>
+    <button id="btnRight">→</button>
+  </div>
+</div>
+
   <p class="instructions">
-    W = Lift, A = Brake, S = Dive, D = Thrust<br>
-    G = Toggle Gravity | Score increases with distance!
+    W = Lift, A = Brake, S = Dive, D = Thrust | G = Toggle Gravity </p> <br><p>Press 1, 2 to shrink and rotate, 3 to shrink AND rotate, 4 to reset</p> <br>
+    Collect coins for score. Don't crash!
   </p>
   <button id="resetBtn">Reset Plane</button>
+    </section>
   </main>
 
   <script src="main.js"></script>
