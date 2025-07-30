@@ -207,45 +207,17 @@ let gravityEnabled = true;
 let wind = 0.05;
 
 const plane = {
-  x: 100,
-  y: 250,
+ x: 150,
+  y: 200, // NOT near bottom; this keeps it suspended
   vx: 0,
   vy: 0,
+  angle: 0,
+  scale: 1,
   width: 60,
-  height: 40,
+  height: 40
 };
 
 let keys = {};
-function simulateKey(key, isDown) {
-  keys[key] = isDown;
-}
-
-function setupMobileControls() {
-  const map = {
-    btnUp: 'w',
-    btnDown: 's',
-    btnLeft: 'a',
-    btnRight: 'd'
-  };
-
-  Object.keys(map).forEach(id => {
-    const key = map[id];
-    const btn = document.getElementById(id);
-    if (!btn) return;
-
-    btn.addEventListener('touchstart', e => {
-      e.preventDefault();
-      simulateKey(key, true);
-    });
-
-    btn.addEventListener('touchend', e => {
-      e.preventDefault();
-      simulateKey(key, false);
-    });
-  });
-}
-
-setupMobileControls();
 
 let score = 0;
 let coins = [];
@@ -514,6 +486,83 @@ reportWindowSize();
 // Update on window resize
 window.addEventListener("resize", reportWindowSize);
  
- 
+ function setupMobileControls() {
+  const controls = {
+    btnUp: "w",
+    btnDown: "s",
+    btnLeft: "a",
+    btnRight: "d"
+  };
+
+  for (let id in controls) {
+    const key = controls[id];
+    const btn = document.getElementById(id);
+    if (!btn) continue;
+
+    btn.addEventListener("touchstart", e => {
+      e.preventDefault();
+      keys[key] = true;
+    }, { passive: false });
+
+    btn.addEventListener("touchend", e => {
+      e.preventDefault();
+      keys[key] = false;
+    });
+
+    btn.addEventListener("mousedown", () => keys[key] = true);
+    btn.addEventListener("mouseup", () => keys[key] = false);
+    btn.addEventListener("mouseleave", () => keys[key] = false);
+  }
+}
+
+setupMobileControls();
+function enableGameStart() {
+  document.addEventListener('keydown', () => {
+    if (!started) {
+      started = true;
+     
+    }
+  });
+
+  document.addEventListener('touchstart', () => {
+    if (!started) {
+      started = true;
+      
+    }
+  }, { passive: true });
+}
+
+
+enableGameStart();
+function resizeCanvas() {
+  const canvas = document.getElementById("gameCanvas");
+  const ratio = 4 / 3;
+  const maxWidth = 800;
+  const margin = 20;
+
+  const width = Math.min(window.innerWidth - margin, maxWidth);
+  const height = width / ratio;
+
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
+
+  canvas.width = width;
+  canvas.height = height;
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas(); // Run once at start
+function shrinkPlane() {
+  plane.scale *= 0.9;
+}
+
+function rotatePlane() {
+  plane.angle += Math.PI / 12; // 15°
+}
+
+function resizePlane() {
+  plane.scale = 1; // reset
+}
+
 });
 
