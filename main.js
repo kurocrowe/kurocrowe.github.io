@@ -216,6 +216,37 @@ const plane = {
 };
 
 let keys = {};
+function simulateKey(key, isDown) {
+  keys[key] = isDown;
+}
+
+function setupMobileControls() {
+  const map = {
+    btnUp: 'w',
+    btnDown: 's',
+    btnLeft: 'a',
+    btnRight: 'd'
+  };
+
+  Object.keys(map).forEach(id => {
+    const key = map[id];
+    const btn = document.getElementById(id);
+    if (!btn) return;
+
+    btn.addEventListener('touchstart', e => {
+      e.preventDefault();
+      simulateKey(key, true);
+    });
+
+    btn.addEventListener('touchend', e => {
+      e.preventDefault();
+      simulateKey(key, false);
+    });
+  });
+}
+
+setupMobileControls();
+
 let score = 0;
 let coins = [];
 let clouds = [];
@@ -485,5 +516,4 @@ window.addEventListener("resize", reportWindowSize);
  
  
 });
-
 
