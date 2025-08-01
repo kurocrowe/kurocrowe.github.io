@@ -380,12 +380,12 @@ document.addEventListener('DOMContentLoaded', function () {
   function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     updatePhysics();
-    updateCoins();
+    
     updateClouds();
     drawClouds();
     if (started && !gameOver) {
       drawCoins();
-
+updateCoins();
     }
     drawPlane();
     drawUI();
