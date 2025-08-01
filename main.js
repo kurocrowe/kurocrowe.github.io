@@ -440,56 +440,56 @@ document.addEventListener('DOMContentLoaded', function () {
 
   reportWindowSize();
   window.addEventListener("resize", reportWindowSize);
- var controls = {
-  up: 'w',
-  down: 's',
-  left: 'a',
-  right: 'd'
-};
+ function setupMobileControls() {
+  const controls = {
+    btnUp: "w",
+    btnDown: "s",
+    btnLeft: "a",
+    btnRight: "d"
+  };
 
-function bindButtonEvents(btn, key) {
-  if (!btn) return;
+  function bindEvents(btn, key) {
+    btn.addEventListener("touchstart", function(e) {
+      e.preventDefault();
+      keys[key] = true;
+      if (!started) started = true;
+    }, { passive: false });
 
-  btn.addEventListener("touchstart", function(e) {
-    e.preventDefault();
-    keys[key] = true;
-    if (!started) started = true;
-  }, { passive: false });
+    btn.addEventListener("touchend", function(e) {
+      e.preventDefault();
+      keys[key] = false;
+    });
 
-  btn.addEventListener("touchend", function(e) {
-    e.preventDefault();
-    keys[key] = false;
-  });
+    btn.addEventListener("mousedown", function() {
+      keys[key] = true;
+      if (!started) started = true;
+    });
 
-  btn.addEventListener("mousedown", function() {
-    keys[key] = true;
-    if (!started) started = true;
-  });
+    btn.addEventListener("mouseup", function() {
+      keys[key] = false;
+    });
 
-  btn.addEventListener("mouseup", function() {
-    keys[key] = false;
-  });
+    btn.addEventListener("mouseleave", function() {
+      keys[key] = false;
+    });
+  }
 
-  btn.addEventListener("mouseleave", function() {
-    keys[key] = false;
-  });
-}
+  for (let id in controls) {
+    if (!controls.hasOwnProperty(id)) continue;
+    const key = controls[id];
+    const btn = document.getElementById(id);
+    if (!btn) continue;
 
-function setupControls() {
-  for (var id in controls) {
-    if (controls.hasOwnProperty(id)) {
-      var key = controls[id];
-      var btn = document.getElementById(id);
-      bindButtonEvents(btn, key);
-    }
+    bindEvents(btn, key);
   }
 }
 
+setupMobileControls();
+
 function enableGameStart() {
-  document.addEventListener("keydown", function () {
+  document.addEventListener('keydown', function() {
     if (!started) {
       started = true;
-      setupControls();
     }
   });
 }
