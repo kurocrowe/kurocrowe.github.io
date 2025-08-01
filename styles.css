@@ -208,6 +208,7 @@ table th {
   background-repeat: no-repeat;
   transition: transform 0.2s ease, left 0.3s ease, top 0.3s ease;
   cursor: pointer;
+   animation: flyAnim 1s steps(8) infinite; 
 }
 
 /* Plane flying sprite animation */
@@ -533,4 +534,8 @@ canvas {
   }
 }
 
-
+.planes-table{
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  width: 100%;
+}
