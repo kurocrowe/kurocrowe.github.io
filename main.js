@@ -440,20 +440,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
   reportWindowSize();
   window.addEventListener("resize", reportWindowSize);
- function setupMobileControls() {
-  const controls = {
-    btnUp: "w",
-    btnDown: "s",
-    btnLeft: "a",
-    btnRight: "d"
-  };
+ var controls = {
+  up: 'w',
+  down: 's',
+  left: 'a',
+  right: 'd'
+};
 
-  for (let id in controls) {
-    const key = controls[id];
-    const btn = document.getElementById(id);
-    if (!btn) continue;
+function bindButtonEvents(btn, key) {
+  if (!btn) return;
 
-   btn.addEventListener("touchstart", function(e) {
+  btn.addEventListener("touchstart", function(e) {
     e.preventDefault();
     keys[key] = true;
     if (!started) started = true;
@@ -476,25 +473,29 @@ document.addEventListener('DOMContentLoaded', function () {
   btn.addEventListener("mouseleave", function() {
     keys[key] = false;
   });
+}
 
+function setupControls() {
+  for (var id in controls) {
+    if (controls.hasOwnProperty(id)) {
+      var key = controls[id];
+      var btn = document.getElementById(id);
+      bindButtonEvents(btn, key);
+    }
   }
 }
 
-
-setupMobileControls();
 function enableGameStart() {
-  document.addEventListener('keydown', function() {
+  document.addEventListener("keydown", function () {
     if (!started) {
       started = true;
+      setupControls();
     }
   });
-
-
- 
 }
 
-
 enableGameStart();
+
 
 
   var btnShrink = document.getElementById("btnShrink");
