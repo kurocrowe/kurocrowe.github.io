@@ -440,52 +440,62 @@ document.addEventListener('DOMContentLoaded', function () {
 
   reportWindowSize();
   window.addEventListener("resize", reportWindowSize);
-const controls = {
-  up: 'w',
-  down: 's',
-  left: 'a',
-  right: 'd'
-};
+ function setupMobileControls() {
+  const controls = {
+    btnUp: "w",
+    btnDown: "s",
+    btnLeft: "a",
+    btnRight: "d"
+  };
 
-Object.entries(controls).forEach(([id, key]) => {
-  const btn = document.getElementById(id);
-  if (!btn) return;
+  for (let id in controls) {
+    const key = controls[id];
+    const btn = document.getElementById(id);
+    if (!btn) continue;
 
-  btn.addEventListener("touchstart", function (e) {
+   btn.addEventListener("touchstart", function(e) {
     e.preventDefault();
     keys[key] = true;
     if (!started) started = true;
   }, { passive: false });
 
-  btn.addEventListener("touchend", function (e) {
+  btn.addEventListener("touchend", function(e) {
     e.preventDefault();
     keys[key] = false;
   });
 
-  btn.addEventListener("mousedown", function () {
+  btn.addEventListener("mousedown", function() {
     keys[key] = true;
     if (!started) started = true;
   });
 
-  btn.addEventListener("mouseup", function () {
+  btn.addEventListener("mouseup", function() {
     keys[key] = false;
   });
 
-  btn.addEventListener("mouseleave", function () {
+  btn.addEventListener("mouseleave", function() {
     keys[key] = false;
   });
-});
+
+  }
+}
+
+
+setupMobileControls();
+function enableGameStart() {
+  document.addEventListener('keydown', function() {
+    if (!started) {
+      started = true;
+    }
+  });
 
 
  
+}
 
-  function enableGameStart() {
-    document.addEventListener('keydown', function () {
-      if (!started) started = true;
-    });
-  }
 
-  enableGameStart();
+enableGameStart();
+
 
   var btnShrink = document.getElementById("btnShrink");
   var btnRotate = document.getElementById("btnRotate");
