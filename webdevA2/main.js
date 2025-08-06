@@ -412,12 +412,13 @@ function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   updatePhysics();
-  updateCoins();
+  
   updateClouds();
 
   drawClouds();
   if (started){
-  drawCoins();}
+  drawCoins();
+  updateCoins();}
   drawPlane();
   drawUI();
 
@@ -584,4 +585,5 @@ if (btnResize) {
 
 
 });
+
 
