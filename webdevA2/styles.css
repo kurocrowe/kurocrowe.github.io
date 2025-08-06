@@ -1,0 +1,537 @@
+/* Reset & base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #fff;
+  color: #111;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+nav {
+  position: relative;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10000;
+}
+
+.nav-logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #111;
+}
+
+.hamburger {
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #111;
+}
+
+.nav-links {
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  padding: 1rem 1.5rem;
+  min-width: 140px;
+  z-index: 10000;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 600;
+  margin: 0.5rem 0;
+  display: block;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #0c67ae;
+}
+
+.nav-open .nav-links {
+  display: flex;
+}
+
+.hero {
+  height: 100vh;
+  background-image: url('wee.gif'); /* Replace with your image filename */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  padding-top: 6rem;
+  color: white; /* Make text readable on background */
+  position: relative;
+}
+
+.hero-title {
+  font-size: 6rem;
+  font-weight: 900;
+  color: #111;
+  letter-spacing: -3px;
+}
+
+.hero-subtitle {
+  margin-top: 1rem;
+  font-size: 1.6rem;
+  color: #555;
+}
+
+main {
+  max-width: 700px;
+  margin: 0 auto 3rem auto;
+  padding: 0 1rem;
+}
+
+.info-section {
+  margin: 5rem auto;
+  text-align: center;
+  filter: blur(5px);
+  opacity: 0;
+  transition: all 0.7s ease;
+  max-width: 700px;
+}
+
+.info-section.visible {
+  filter: none;
+  opacity: 1;
+}
+
+.info-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #111;
+}
+
+.info-section p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Table in Types */
+table {
+  margin: 1rem auto 2rem;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 600px;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 12px 8px;
+  color: #111;
+}
+
+table th {
+  background: #f0f0f0;
+  font-weight: 700;
+}
+.planes-table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.planes-table img {
+  display: block;
+  margin: 10px auto; /* Horizontally center with some spacing */
+  max-width: 200px;
+  height: auto;
+}
+/* Puzzle board */
+#board {
+  width: 360px;
+  height: 360px;
+  background-color: #e0f0ff;
+  border: 10px solid #0c67ae;
+  margin: 1rem auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0; /* no gaps */
+  box-sizing: border-box;
+  user-select: none;
+  overflow: hidden;
+}
+
+#board img {
+  width: 120px;
+  height: 120px;
+  border: 1px solid #0c67ae;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* Game Area & Plane */
+#gameArea {
+  position: relative;
+  width: 600px;
+  height: 200px;
+  margin: 1rem auto;
+  border: 2px solid #0c67ae;
+  background: #eef6fc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#plane {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background-image: url('plane.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: transform 0.2s ease, left 0.3s ease, top 0.3s ease;
+  cursor: pointer;
+  animation: flyAnim 1s steps(4) infinite;
+}
+
+/* Plane flying sprite animation */
+@keyframes flyAnim {
+  from { background-position-x: 0; }
+  to { background-position-x: -480px; }
+}
+
+/* Scroll down button */
+.scroll-down {
+  font-size: 2.5rem;
+  color: #999;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 3rem auto 0 auto;
+  display: block;
+  animation: bounce 2s infinite;
+  transition: color 0.3s ease;
+}
+
+/* .scroll-down:hover {
+  color: #0c67ae;
+} */
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(10px); }
+  60% { transform: translateY(5px); }
+}
+
+/* Quiz */
+form {
+  text-align: left;
+  max-width: 400px;
+  margin: 1rem auto 2rem;
+}
+
+form p {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+button {
+  background-color: #0c67ae;
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+/* button:hover {
+  background-color: #084c7a;
+} */
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3.5rem;
+  }
+
+  #board {
+    width: 270px;
+    height: 270px;
+  }
+
+  #board img {
+    width: 88px;
+    height: 88px;
+  }
+
+  #gameArea {
+    width: 100%;
+    height: 180px;
+  }
+
+  #plane {
+     width: 18vw;
+    aspect-ratio: 1 / 1;
+    background-size: contain;
+  }
+  
+
+.qr-dropdown-wrapper{display:none;} /*hide QR code */
+
+}
+/* Styles for Types of Planes images */
+.planes-table img {
+  display: none;
+  max-width: 150px; /* or whatever width you want */
+  height: auto;
+  margin-top: 0.5rem;
+}
+
+
+.planes-table img:hover {
+  box-shadow: 0 0 10px rgba(12, 103, 174, 0.7);
+}
+.nav-logo {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+.aero-diagram {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+  background-color: #ffffff;
+}
+
+.plane-diagram {
+  position: relative;
+  max-width: 800px;
+  width: 100%;
+}
+
+.plane-diagram img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Label Styling */
+.label {
+  position: absolute;
+  background-color: #0c67ae;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: help;
+  transition: transform 0.2s;
+}
+
+/* Position labels over the image */
+/* Position labels over the image - adjusted for better placement */
+/* Individual label positions */
+.lift {
+  top: 10%;
+  left: 48%;
+}
+
+.thrust {
+  top: 50%;
+  left: 15%;
+}
+
+.drag {
+  top: 40%;
+  right: 10%;
+}
+
+.weight {
+  bottom: 5%;
+  left: 48%;
+}
+
+/* Tooltip */
+.label::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  text-align: center;
+  font-size: 12px;
+  z-index: 10;
+}
+
+.label:hover::after {
+  opacity: 1;
+}
+.qr-dropdown-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+#qr-toggle {
+  padding: 10px 16px;
+  background-color: #0c67ae;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.qr-dropdown {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 220px;
+  transition: opacity 0.3s ease;
+}
+
+.qr-dropdown img {
+  width: 180px;
+  height: auto;
+  margin-top: 0.5rem;
+}
+
+.qr-dropdown.hidden {
+  display: none;
+}
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+p {
+  font-size: 18px;
+}
+#sizeInfo {
+  margin-top: 20px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  display: inline-block;
+}
+canvas {
+  border: 2px solid #0c67ae;
+  border-radius: 8px;
+  background-color: #d0e8ff;
+
+  display: block;
+  margin: 1rem auto;
+
+  max-width: 100%;          /* Allow canvas to shrink on small screens */
+  width: 100%;              /* Responsive width */
+  height: auto;             /* Maintain aspect ratio */
+
+  position: relative;
+}
+
+.instructions {
+  font-size: 1rem;
+}
+.mobile-controls {
+  display: none;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.mobile-controls button {
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  margin: 5px;
+  border-radius: 10px;
+  background-color: #444;
+  color: white;
+  border: none;
+}
+
+.mobile-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .mobile-controls {
+    display: block;
+  }
+}
+
+#mobile-plane-controls {
+  display: none;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+#mobile-plane-controls button {
+  margin: 0.3rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: 1px solid #0c67ae;
+  background-color: #f0faff;
+  color: #0c67ae;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#mobile-plane-controls button:hover {
+  background-color: #d0e8ff;
+}
+
+/* Show only on screens 768px wide or less */
+@media screen and (max-width: 768px) {
+  #mobile-plane-controls {
+    display: block;
+  }
+}
+
+
