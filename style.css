@@ -34,17 +34,10 @@ section + section {
 
 /* Hero Section */
 .hero {
-   
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: var(--accent-black);
   position: relative;
   width: 100%;
   overflow: hidden;
   text-align: center;
-    font-family: 'Sawarabi Mincho', serif;
 }
 
 .hero-img {
