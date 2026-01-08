@@ -126,18 +126,7 @@ header {
 .nav-links a:hover::after {
   width: 100%;
 }
-@media (max-width: 767px) {
 
-  /* Header / Nav */
-  header {
-    position: relative; /* not sticky */
-    background: rgba(253,246,240,0.95); 
-    border-bottom: 6px solid var(--accent-red);
-    padding: 12px 16px;
-    z-index: 10; /* keep on top */
-  }
-
-}
 /* ===== Mobile Responsiveness (No Hamburger, Painted Stroke Nav) ===== */
 @media (max-width: 767px) {
 
