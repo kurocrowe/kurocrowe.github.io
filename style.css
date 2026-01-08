@@ -1,0 +1,189 @@
+/* Reset */
+* { box-sizing: border-box; margin:0; padding:0; }
+
+:root {
+  --main-bg: #FDF6F0; /* paper-like background */
+  --accent-red: #C72C48; /* traditional red */
+  --accent-black: #1B1B1B; /* dark text */
+  --card-bg: rgba(255,255,255,0.85); /* semi-transparent */
+}
+
+/* Body */
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--main-bg);
+  color: var(--accent-black);
+  line-height: 1.8;
+}
+
+/* Section Styles */
+
+section {
+  padding: 80px 24px;
+  background: url('paper_texture.jpg') repeat;
+  background-size: cover;
+  border-top: 6px solid #C72C48; /* single brush-stroke red */
+  /* Remove border-bottom to keep only one border between sections */
+  margin-bottom: 20px;
+  position: relative;
+}
+section + section {
+  margin-top: 40px; /* creates visual separation between sections */
+}
+
+/* Hero */
+.hero {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--accent-black);
+  background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('images/hero_painted.jpg') center/cover no-repeat;
+  font-family: 'Sawarabi Mincho', serif;
+}
+
+.hero h1 {
+  font-size: 64px;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-shadow: 1px 1px 0 #fff;
+}
+/* Header / Nav */
+header {
+  position: sticky;
+  top: 0;
+  background: rgba(253,246,240,0.95); /* paper-like semi-transparent */
+  z-index: 100;
+  border-bottom: 6px solid #C72C48; /* red brush stroke border */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Sawarabi Mincho', serif;
+  font-size: 28px;
+  color: #C72C48; /* traditional red */
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  position: relative;
+}
+.logo a {
+  text-decoration: none;
+  color: inherit;
+}
+.nav-links a {
+  margin-left: 28px;
+  font-family: 'Sawarabi Mincho', serif;
+  text-decoration: none;
+  color: #1B1B1B; /* black */
+  font-size: 16px;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s ease;
+}
+
+/* Brush-style underline for active and hover */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 4px;
+  bottom: 0;
+  left: 0;
+  background: #C72C48; /* red brush stroke */
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.nav-links a.active::after,
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width:768px){
+  .nav-links {
+    display: none; /* for mobile, you can add a hamburger toggle */
+  }
+}
+
+/* Headings */
+h2, h3 {
+  font-family: 'Sawarabi Mincho', serif;
+  color: var(--accent-red);
+  margin-bottom: 24px;
+}
+
+/* Content Cards */
+.card {
+  background: var(--card-bg);
+  border: 3px solid var(--accent-red);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+  margin-bottom: 24px;
+}
+
+/* Images with painted frame */
+.card img {
+  width: 100%;
+  border: 6px solid rgba(199,44,72,0.5);
+  border-radius: 16px;
+  box-shadow: 3px 3px 12px rgba(0,0,0,0.2);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 36px;
+  background: var(--accent-red);
+  color: #fff;
+  font-weight: bold;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: 'Sawarabi Mincho', serif;
+  box-shadow: 0 5px 15px rgba(199,44,72,0.3);
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(199,44,72,0.5);
+}
+
+/* Footer */
+footer {
+  padding: 40px 24px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--accent-black);
+  background: url('images/paper_texture_dark.jpg') repeat;
+  border-top: 6px solid var(--accent-red);
+}
+footer .social-icon {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+footer .social-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  filter: grayscale(0.2);
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+footer .social-icon:hover {
+  filter: grayscale(0);
+  transform: scale(1.2);
+}
