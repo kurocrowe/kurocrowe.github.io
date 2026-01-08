@@ -415,17 +415,20 @@ footer .social-icon {
     margin-top: 0;
   }
 }
-footer .social-icon {
-  width: 20px;
-  height: 20px;
-  vertical-align: middle;
-  filter: grayscale(0.2);
-  transition: filter 0.3s ease, transform 0.3s ease;
+
+/* === HERO MUST NOT INHERIT SECTION SPACING === */
+section.hero {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
 }
 
-footer .social-icon:hover {
-  filter: grayscale(0);
-  transform: scale(1.2);
+@media (max-width: 767px) {
+  section.hero {
+    padding-top: 0;
+    margin-top: 0;
+  }
 }
-
-
+.hero {
+  border-top: none;
+}
