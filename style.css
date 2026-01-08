@@ -402,7 +402,19 @@ footer .social-icon {
   display: inline-block;
   margin-top: 10px;
 }
+/* === Remove gap between nav and hero === */
+.hero {
+  padding-top: 0;
+  margin-top: 0;
+}
 
+/* Mobile fix */
+@media (max-width: 767px) {
+  .hero {
+    padding-top: 0;
+    margin-top: 0;
+  }
+}
 footer .social-icon {
   width: 20px;
   height: 20px;
@@ -415,3 +427,5 @@ footer .social-icon:hover {
   filter: grayscale(0);
   transform: scale(1.2);
 }
+
+
