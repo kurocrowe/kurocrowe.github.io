@@ -45,10 +45,7 @@ section + section {
 }
 
 .hero-img {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+
   width: auto;        /* conventional width */
   height: 100%;       /* fill hero vertically */
   object-fit: cover;  /* cover hero without stretching */
