@@ -74,27 +74,6 @@ section + section {
   margin-top: 12px;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 767px) {
-  .hero {
-    min-height: 50vh;
-    padding: 20px 16px;
-  }
-
-  .hero-img {
-    height: 100%;
-    width: auto;
-  }
-
-  .hero-content h1 {
-    font-size: 28px;
-  }
-
-  .hero-content p {
-    font-size: 14px;
-  }
-}
-
 /* Header / Nav - Scrolls with page (not sticky) */
 header {
   position: relative; /* change from sticky to relative */
