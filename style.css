@@ -48,10 +48,14 @@ section + section {
 }
 
 .hero-content {
-  position: relative;
-  z-index: 1;         /* above the image */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* center content over image */
   color: var(--accent-black);
+  padding: 0 16px;
 }
+
 
 .hero-content h1 {
   font-family: 'Sawarabi Mincho', serif;
@@ -139,6 +143,14 @@ header {
 
   section + section {
     margin-top: 30px;
+  }
+header {
+    position: relative; /* scrolls with page */
+    top: auto;
+    background: rgba(253,246,240,0.95);
+    border-bottom: 6px solid var(--accent-red); /* painted stroke bottom */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: auto;
   }
 
   /* Grid / Cards */
