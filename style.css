@@ -416,19 +416,7 @@ footer .social-icon {
   }
 }
 
-/* === HERO MUST NOT INHERIT SECTION SPACING === */
-section.hero {
-  padding-top: 0;
-  padding-bottom: 0;
-  margin-top: 0;
-}
 
-@media (max-width: 767px) {
-  section.hero {
-    padding-top: 0;
-    margin-top: 0;
-  }
-}
 .hero {
   border-top: none;
 }
