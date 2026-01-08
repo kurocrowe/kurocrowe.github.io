@@ -32,29 +32,20 @@ section + section {
 }
 
 
+
 .hero {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border-top: 6px solid var(--accent-red); /* brush stroke top */
+  width: 100%;
   overflow: hidden;
-  min-height: 60vh;
-  padding: 0 16px;
+  text-align: center;
 }
 
- .hero-img {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: auto;        /* conventional width */
-  height: 100%;       /* fill hero vertically */
-  object-fit: cover;  /* cover hero without stretching */
-  opacity: 0.85;      /* translucent effect */
-  z-index: 0;
- }
+.hero-img {
+  width: 100%;
+  height: auto; /* scales proportionally */
+  display: block;
+  border-top: 6px solid var(--accent-red); /* brush stroke top border */
+}
 
 .hero-content {
   position: relative;
@@ -146,53 +137,6 @@ header {
     z-index: 10; /* keep on top */
   }
 
-  /* Hero spacing */
-  .hero {
-    margin-top: 80px; /* space below nav */
-    min-height: 50vh;
-    padding: 40px 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative; /* needed for absolute img inside */
-    border-top: 6px solid var(--accent-red);
-    overflow: hidden;
-  }
-
-  /* Hero image */
-  .hero img.hero-img {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: auto;      /* conventional width */
-    height: 100%;     /* fill hero vertically */
-    object-fit: cover;/* cover hero area */
-    opacity: 0.85;    /* translucent effect */
-    z-index: 0;       /* behind content */
-  }
-
-  /* Hero content above the image */
-  .hero-content {
-    position: relative;
-    z-index: 1;
-    color: var(--accent-black);
-  }
-
-  .hero-content h1 {
-    font-size: 28px;
-    line-height: 1.2;
-    margin-bottom: 12px;
-    font-family: 'Sawarabi Mincho', serif;
-  }
-
-  .hero-content p {
-    font-size: 14px;
-    margin-top: 0;
-    font-family: 'Noto Sans JP', sans-serif;
-  }
 }
 /* ===== Mobile Responsiveness (No Hamburger, Painted Stroke Nav) ===== */
 @media (max-width: 767px) {
