@@ -98,7 +98,7 @@ header {
 
   /* Hero section */
   .hero {
-    margin-top: 80px; /* space below nav */
+    
     min-height: 50vh;
     max-height: 60vh; /* limit height on mobile */
     padding: 20px 16px;
