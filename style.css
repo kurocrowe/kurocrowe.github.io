@@ -78,7 +78,66 @@ header {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   z-index: auto;      /* remove layering effect */
 }
+@media (max-width: 767px) {
 
+  /* Header / Nav */
+  header {
+    position: relative; /* not sticky */
+    background: rgba(253,246,240,0.95); 
+    border-bottom: 6px solid var(--accent-red);
+    padding: 12px 16px;
+    z-index: 10; /* keep on top */
+  }
+
+  /* Hero section */
+  .hero {
+    margin-top: 80px; /* space below nav */
+    min-height: 50vh;
+    max-height: 60vh; /* limit height on mobile */
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative; /* for absolute image */
+    border-top: 6px solid var(--accent-red);
+    overflow: hidden;
+  }
+
+  /* Hero image smaller */
+  .hero img.hero-img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;       /* smaller width on mobile */
+    height: auto;     /* maintain aspect ratio */
+    object-fit: contain; /* ensures full image is visible */
+    opacity: 0.85;    /* translucent effect */
+    z-index: 0;       /* behind content */
+  }
+
+  /* Hero content above image */
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    color: var(--accent-black);
+  }
+
+  .hero-content h1 {
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    font-family: 'Sawarabi Mincho', serif;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+    margin-top: 0;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+}
 /* Navbar container */
 .navbar {
   max-width: 1200px;
@@ -143,14 +202,6 @@ header {
 
   section + section {
     margin-top: 30px;
-  }
-header {
-    position: relative; /* scrolls with page */
-    top: auto;
-    background: rgba(253,246,240,0.95);
-    border-bottom: 6px solid var(--accent-red); /* painted stroke bottom */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    z-index: auto;
   }
 
   /* Grid / Cards */
