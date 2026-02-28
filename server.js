@@ -29,7 +29,9 @@ app.use(express.json());
 ========================= */
 
 // Parse credentials safely from environment
-const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+const credentials = JSON.parse(
+  process.env.GOOGLE_CREDENTIALS.replace(/\\n/g, "\n")
+);
 
 const auth = new google.auth.GoogleAuth({
   credentials,
@@ -86,3 +88,4 @@ app.post("/reserve", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
