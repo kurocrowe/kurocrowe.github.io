@@ -25,7 +25,7 @@ document.querySelectorAll('.card, .cta, .hero-content').forEach(el => {
 });
 
 
-const scriptURL = "https://keria-backend.onrender.com/reserve";
+const scriptURL = " https://kurocrowe-github-io.onrender.com/reserve";
 
 document.getElementById("reservationForm")
   .addEventListener("submit", function(e) {
