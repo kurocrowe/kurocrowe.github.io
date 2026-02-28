@@ -25,7 +25,7 @@ document.querySelectorAll('.card, .cta, .hero-content').forEach(el => {
 });
 
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbxVSKaKVca7J3CuiCpQk1322IRTUbzLVX8538zvHvWj_PvrlgPLUnXxAkEGq3M1k9cn/exec";
+const scriptURL = "http://localhost:3000/reserve";
 
 document.getElementById("reservationForm")
   .addEventListener("submit", function(e) {
@@ -33,24 +33,26 @@ document.getElementById("reservationForm")
 
     const formData = new FormData(this);
 
-   fetch(scriptURL, {
-  method: "POST",
-  body: new URLSearchParams({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    message: formData.get("message")
-  })
-})
-.then(res => res.text())
-.then(() => {
-  alert("Reservation sent successfully!");
-  this.reset();
-})
-.catch(err => {
-  alert("Error submitting form.");
-  console.error(err);
+    fetch(scriptURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: formData.get("name"),
+        email: formData.get("email"),
+        message: formData.get("message")
+      })
+    })
+    .then(res => res.json())
+    .then(() => {
+      alert("Reservation sent successfully!");
+      this.reset();
+    })
+    .catch(err => {
+      alert("Error submitting form.");
+      console.error(err);
+    });
 });
-});
-
 
 
