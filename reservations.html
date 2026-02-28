@@ -39,15 +39,17 @@
 
 <section class="cta">
     <h3>Make reservation</h3>
-      <form>
-        <label>Name:</label><br>
-        <input type="text" placeholder="Your name"><br><br>
-        <label>Email:</label><br>
-        <input type="email" placeholder="Your email"><br><br>
-        <label>Message:</label><br>
-        <textarea rows="6" placeholder="Your message"></textarea><br><br>
-        <button type="submit" class="btn">Make reservation</button>
-      </form><br><br>
+ <form id="reservationForm"> <label>Name:</label><br>
+  <input type="text" name="name" required><br><br>
+
+  <label>Email:</label><br>
+  <input type="email" name="email" required><br><br>
+
+  <label>Message:</label><br>
+  <textarea name="message" rows="6" required></textarea><br><br>
+
+  <button type="submit" class="btn">Make reservation</button>
+</form><br><br>
 
   <h2>特別な夜を、けりあで。</h2>
   <a href="tel:+6567330654" class="btn">今すぐ電話する</a>
