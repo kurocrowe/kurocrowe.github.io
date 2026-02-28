@@ -5,14 +5,30 @@ const { google } = require("googleapis");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Restrict CORS to frontend domain
+/* =========================
+   CORS CONFIGURATION
+========================= */
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL
+  origin: [
+    "https://kurocrowe.github.io",
+    "http://localhost:5173"
+  ],
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+  credentials: true
 }));
+
+// Handle preflight requests explicitly
+app.options("*", cors());
 
 app.use(express.json());
 
-// Parse credentials from ENV
+/* =========================
+   GOOGLE SHEETS AUTH
+========================= */
+
+// Parse credentials safely from environment
 const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
 
 const auth = new google.auth.GoogleAuth({
@@ -23,10 +39,17 @@ const auth = new google.auth.GoogleAuth({
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
 const SHEET_NAME = "Sheet1";
 
-// Health check
+/* =========================
+   HEALTH CHECK
+========================= */
+
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "OK" });
 });
+
+/* =========================
+   RESERVATION ROUTE
+========================= */
 
 app.post("/reserve", async (req, res) => {
   const { name, email, message } = req.body;
@@ -44,17 +67,21 @@ app.post("/reserve", async (req, res) => {
       range: `${SHEET_NAME}!A:D`,
       valueInputOption: "RAW",
       requestBody: {
-        values: [[new Date(), name, email, message]]
+        values: [[new Date().toISOString(), name, email, message]]
       }
     });
 
-    res.json({ success: true });
+    return res.status(200).json({ success: true });
 
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to save to sheet" });
+    console.error("Sheet Error:", error);
+    return res.status(500).json({ error: "Failed to save to sheet" });
   }
 });
+
+/* =========================
+   START SERVER
+========================= */
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
