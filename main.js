@@ -25,7 +25,7 @@ document.querySelectorAll('.card, .cta, .hero-content').forEach(el => {
 });
 
 
-const scriptURL = "http://localhost:3000/reserve";
+const scriptURL = "https://keria-backend.onrender.com/reserve";
 
 document.getElementById("reservationForm")
   .addEventListener("submit", function(e) {
