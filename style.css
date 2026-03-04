@@ -178,4 +178,66 @@ background:black;
 color:white;
 cursor:pointer;
 }
+@media (max-width:768px){
 
+.album-container{
+height:100vh;
+overflow:hidden;
+}
+
+/* keep page slider working */
+
+.page{
+position:absolute;
+width:100%;
+height:100%;
+}
+
+/* adjust image height */
+
+.image-section{
+flex:1.5;
+min-height:220px;
+}
+
+/* smaller padding */
+
+.content-section{
+padding:25px;
+}
+
+/* smaller text */
+
+h1{
+font-size:1.9rem;
+}
+
+h2{
+font-size:1rem;
+}
+
+p{
+font-size:0.95rem;
+}
+
+/* card resize */
+
+.card{
+max-width:90%;
+padding:20px;
+}
+
+/* smaller navigation buttons */
+
+.nav-button{
+padding:12px;
+font-size:18px;
+}
+
+/* responsive form */
+
+.reservation-form{
+width:90%;
+}
+
+}
