@@ -16,28 +16,31 @@ overflow-y:auto;
 position:relative;
 width:100%;
 height:100vh;
-overflow-y:auto;
+overflow:hidden;
 }
 
-/* Page slider */
+/* Page slider (optimized for smooth animation) */
 
 .page{
 position:absolute;
 width:100%;
 height:100%;
-left:100%;
 top:0;
-transition:all .7s ease;
+
+transform:translateX(100%);
+transition:transform .45s ease;
+will-change:transform;
+
 display:flex;
 flex-direction:column;
 }
 
 .page.active{
-left:0;
+transform:translateX(0);
 }
 
 .page.prev{
-left:-100%;
+transform:translateX(-100%);
 }
 
 /* Image section */
@@ -183,7 +186,7 @@ cursor:pointer;
 border-radius:4px;
 }
 
-/* Social links (Instagram + TikTok) */
+/* Social links */
 
 .social-links{
 display:flex;
@@ -198,17 +201,18 @@ width:28px;
 height:28px;
 }
 
-/* Mobile adjustments */
+/* Mobile layout */
 
 @media (max-width:768px){
 
 .album-container{
 height:auto;
+overflow-y:auto;
 }
 
 .page{
 position:relative;
-left:0;
+transform:none;
 height:auto;
 }
 
