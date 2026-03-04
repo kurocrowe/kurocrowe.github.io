@@ -19,7 +19,7 @@ height:100vh;
 overflow:hidden;
 }
 
-/* Page slider (optimized for smooth animation) */
+/* Page slider */
 
 .page{
 position:absolute;
@@ -28,8 +28,7 @@ height:100%;
 top:0;
 
 transform:translateX(100%);
-transition:transform .45s ease;
-will-change:transform;
+transition:transform .5s ease;
 
 display:flex;
 flex-direction:column;
@@ -57,7 +56,7 @@ justify-content:center;
 /* Card design */
 
 .card{
-background:#fff;
+background:white;
 border:3px solid #c72c48;
 border-radius:30px;
 padding:30px;
@@ -70,7 +69,7 @@ box-shadow:4px 6px 20px rgba(0,0,0,0.15);
 transition:transform 0.3s ease;
 }
 
-/* Card hover effect */
+/* Card hover */
 
 .card:hover{
 transform:scale(1.05);
@@ -90,7 +89,7 @@ box-shadow:3px 4px 14px rgba(0,0,0,0.25);
 transition:transform 0.3s ease;
 }
 
-/* Content section */
+/* Content */
 
 .content-section{
 flex:1;
@@ -134,11 +133,6 @@ cursor:pointer;
 font-size:20px;
 border-radius:50%;
 box-shadow:0 4px 12px rgba(0,0,0,0.1);
-transition:transform 0.2s ease;
-}
-
-.nav-button:hover{
-transform:translateY(-50%) scale(1.1);
 }
 
 .nav-left{
@@ -183,25 +177,9 @@ border:none;
 background:black;
 color:white;
 cursor:pointer;
-border-radius:4px;
 }
 
-/* Social links */
-
-.social-links{
-display:flex;
-gap:20px;
-margin-top:20px;
-align-items:center;
-justify-content:center;
-}
-
-.social-links img{
-width:28px;
-height:28px;
-}
-
-/* Mobile layout */
+/* ---------------- MOBILE RESPONSIVE ---------------- */
 
 @media (max-width:768px){
 
@@ -216,12 +194,38 @@ transform:none;
 height:auto;
 }
 
+.image-section{
+min-height:250px;
+}
+
 .content-section{
-padding:30px;
+padding:25px;
 }
 
 h1{
-font-size:2rem;
+font-size:1.9rem;
+}
+
+h2{
+font-size:1rem;
+}
+
+p{
+font-size:0.95rem;
+}
+
+.card{
+max-width:90%;
+padding:20px;
+}
+
+.nav-button{
+padding:10px;
+font-size:18px;
+}
+
+.reservation-form{
+width:90%;
 }
 
 }
