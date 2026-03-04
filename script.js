@@ -1,27 +1,50 @@
-// Apple-style subtle interactions
+const pages = document.querySelectorAll('.page');
+const indicator = document.getElementById('indicator');
 
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  });
+let current = 0;
+
+function updatePages(){
+
+pages.forEach((page,index)=>{
+
+page.classList.remove('active','prev');
+
+if(index === current){
+page.classList.add('active');
+}
+else if(index < current){
+page.classList.add('prev');
+}
+
 });
 
-// Simple fade-in on scroll
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.15 });
+indicator.innerText = `Page ${current+1} of ${pages.length}`;
 
-document.querySelectorAll('.card, .cta, .hero-content').forEach(el => {
-  observer.observe(el);
+}
+
+function nextPage(){
+
+if(current < pages.length - 1){
+current++;
+updatePages();
+}
+
+}
+
+function prevPage(){
+
+if(current > 0){
+current--;
+updatePages();
+}
+
+}
+
+document.addEventListener('keydown',(e)=>{
+
+if(e.key === "ArrowRight") nextPage();
+if(e.key === "ArrowLeft") prevPage();
+
 });
 
 
@@ -54,5 +77,3 @@ document.getElementById("reservationForm")
       console.error(err);
     });
 });
-
-
