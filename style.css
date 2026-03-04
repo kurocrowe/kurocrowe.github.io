@@ -155,3 +155,16 @@ background:black;
 color:white;
 cursor:pointer;
 }
+@media (max-width:768px){
+  body{
+    overflow-y:auto;
+  }
+
+  .content-section{
+    overflow-y:auto;
+  }
+
+  .album-container{
+    height:auto;
+  }
+}
