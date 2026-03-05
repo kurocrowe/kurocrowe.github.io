@@ -4,7 +4,11 @@ const indicator = document.getElementById('indicator');
 let current = 0;
 let isAnimating = false;
 
-/* Update page positions */
+/* INITIALIZE FIRST PAGE */
+
+updatePages();
+
+/* UPDATE PAGE POSITIONS */
 
 function updatePages(){
 
@@ -19,21 +23,24 @@ page.classList.remove('active','prev');
 if(index === current){
 page.classList.add('active');
 }
+
 else if(index < current){
 page.classList.add('prev');
 }
 
 });
 
+if(indicator){
 indicator.innerText = `Page ${current+1} of ${pages.length}`;
+}
 
 setTimeout(()=>{
 isAnimating = false;
-},450);
+},500);
 
 }
 
-/* Next page */
+/* NEXT PAGE */
 
 function nextPage(){
 
@@ -44,7 +51,7 @@ updatePages();
 
 }
 
-/* Previous page */
+/* PREVIOUS PAGE */
 
 function prevPage(){
 
@@ -55,7 +62,7 @@ updatePages();
 
 }
 
-/* Keyboard navigation */
+/* KEYBOARD NAVIGATION */
 
 document.addEventListener('keydown',(e)=>{
 
@@ -71,6 +78,7 @@ if(e.key === "ArrowLeft") prevPage();
 let touchStartX = 0;
 let touchStartY = 0;
 let touchEndX = 0;
+let touchEndY = 0;
 
 document.addEventListener("touchstart",(e)=>{
 
@@ -82,6 +90,7 @@ touchStartY = e.changedTouches[0].screenY;
 document.addEventListener("touchend",(e)=>{
 
 touchEndX = e.changedTouches[0].screenX;
+touchEndY = e.changedTouches[0].screenY;
 
 handleSwipe();
 
@@ -89,19 +98,24 @@ handleSwipe();
 
 function handleSwipe(){
 
-const swipeDistance = touchEndX - touchStartX;
+const swipeX = touchEndX - touchStartX;
+const swipeY = touchEndY - touchStartY;
 
 const swipeThreshold = 60;
 
-/* swipe left */
+/* prevent vertical scroll triggering swipe */
 
-if(swipeDistance < -swipeThreshold){
+if(Math.abs(swipeY) > Math.abs(swipeX)) return;
+
+/* swipe left → next page */
+
+if(swipeX < -swipeThreshold){
 nextPage();
 }
 
-/* swipe right */
+/* swipe right → previous page */
 
-if(swipeDistance > swipeThreshold){
+if(swipeX > swipeThreshold){
 prevPage();
 }
 
@@ -111,7 +125,6 @@ prevPage();
 /* RESERVATION FORM SUBMIT */
 
 const scriptURL = "https://kurocrowe-github-io.onrender.com/reserve";
-
 const form = document.getElementById("reservationForm");
 
 if(form){
