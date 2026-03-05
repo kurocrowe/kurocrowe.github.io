@@ -7,7 +7,8 @@ box-sizing:border-box;
 body{
 font-family:'Inter',sans-serif;
 background:white;
-overflow:hidden;
+overflow-x:hidden;
+overflow-y:auto;
 }
 
 /* MAIN CONTAINER */
@@ -32,6 +33,9 @@ transition:transform .6s ease;
 
 display:flex;
 flex-direction:column;
+
+/* allow scrolling inside page */
+overflow-y:auto;
 }
 
 .page.active{
@@ -88,7 +92,7 @@ border:4px solid rgba(199,44,72,0.5);
 box-shadow:3px 4px 14px rgba(0,0,0,0.25);
 }
 
-/* CONTENT */
+/* CONTENT SECTION */
 
 .content-section{
 flex:1;
@@ -193,7 +197,14 @@ width:28px;
 height:28px;
 }
 
-/* MOBILE RESPONSIVE */
+/* MAP */
+
+iframe{
+max-width:100%;
+border-radius:12px;
+}
+
+/* MOBILE */
 
 @media (max-width:768px){
 
