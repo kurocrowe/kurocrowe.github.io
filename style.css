@@ -204,38 +204,37 @@ max-width:100%;
 border-radius:12px;
 }
 
-/* MOBILE */
+/* MOBILE SCROLL SUPPORT */
 
 @media (max-width:768px){
 
+body{
+overflow-y:auto;
+}
+
+.album-container{
+height:auto;
+overflow-y:auto;
+}
+
+.page{
+position:relative;
+transform:none;
+height:auto;
+min-height:100vh;
+}
+
 .image-section{
-flex:1.4;
+flex:none;
+height:250px;
 }
 
 .content-section{
 padding:25px;
 }
 
-h1{
-font-size:1.9rem;
-}
-
-h2{
-font-size:1rem;
-}
-
-p{
-font-size:0.95rem;
-}
-
 .card{
 max-width:90%;
-padding:20px;
-}
-
-.nav-button{
-padding:12px;
-font-size:18px;
 }
 
 .reservation-form{
