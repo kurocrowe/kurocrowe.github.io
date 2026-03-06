@@ -6,6 +6,7 @@ box-sizing:border-box;
 
 body{
 font-family:'Inter',sans-serif;
+color: white;
 background:white;
 overflow-x:hidden;
 overflow-y:auto;
