@@ -9,6 +9,13 @@ font-family:'Inter',sans-serif;
 background:white;
 overflow-x:hidden;
 overflow-y:auto;
+
+/* background image */
+background-image:url("flower.png");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+background-attachment:fixed;
 }
 
 /* MAIN CONTAINER */
