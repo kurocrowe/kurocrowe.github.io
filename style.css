@@ -6,7 +6,7 @@ box-sizing:border-box;
 
 body{
 font-family:'Inter',sans-serif;
-color: white;
+
 background:white;
 overflow-x:hidden;
 overflow-y:auto;
@@ -128,7 +128,7 @@ margin-bottom:20px;
 p{
 max-width:700px;
 line-height:1.6;
-color:#444;
+color:white;
 }
 
 /* NAVIGATION BUTTONS */
