@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { google } = require("googleapis");
+const path = require("path");   // NEW
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,16 +20,21 @@ app.use(cors({
   credentials: true
 }));
 
-// Handle preflight requests explicitly
 app.options("*", cors());
 
 app.use(express.json());
 
 /* =========================
+   SERVE WEBSITE FILES
+========================= */
+
+// Serve everything in the same folder
+app.use(express.static(__dirname));
+
+/* =========================
    GOOGLE SHEETS AUTH
 ========================= */
 
-// Parse credentials safely from environment
 const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
 
 const auth = new google.auth.GoogleAuth({
@@ -86,5 +92,3 @@ app.post("/reserve", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-
