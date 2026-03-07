@@ -13,7 +13,8 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({
   origin: [
     "https://kurocrowe.github.io",
-    "http://localhost:5173"
+    "http://localhost:5173",
+    "https://keria.live"
   ],
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
@@ -92,3 +93,4 @@ app.post("/reserve", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
