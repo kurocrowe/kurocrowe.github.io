@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { google } = require("googleapis");
-const path = require("path");   // NEW
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,15 +10,28 @@ const PORT = process.env.PORT || 3000;
    CORS CONFIGURATION
 ========================= */
 
+const allowedOrigins = [
+  "https://kurocrowe.github.io",
+  "http://localhost:5173",
+  "https://keria.live",
+  "https://www.keria.live"
+];
+
 app.use(cors({
-  origin: [
-    "https://kurocrowe.github.io",
-    "http://localhost:5173",
-    "https://keria.live"
-  ],
+  origin: function(origin, callback) {
+
+    // allow requests without origin (Postman / curl)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed"));
+    }
+
+  },
   methods: ["GET", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type"],
-  credentials: true
+  allowedHeaders: ["Content-Type"]
 }));
 
 app.options("*", cors());
@@ -29,12 +42,19 @@ app.use(express.json());
    SERVE WEBSITE FILES
 ========================= */
 
-// Serve everything in the same folder
 app.use(express.static(__dirname));
 
 /* =========================
    GOOGLE SHEETS AUTH
 ========================= */
+
+if (!process.env.GOOGLE_CREDENTIALS) {
+  console.error("Missing GOOGLE_CREDENTIALS environment variable");
+}
+
+if (!process.env.SPREADSHEET_ID) {
+  console.error("Missing SPREADSHEET_ID environment variable");
+}
 
 const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
 
@@ -59,6 +79,9 @@ app.get("/health", (req, res) => {
 ========================= */
 
 app.post("/reserve", async (req, res) => {
+
+  console.log("Incoming reservation:", req.body);
+
   const { name, email, message } = req.body;
 
   if (!name || !email || !message) {
@@ -66,24 +89,37 @@ app.post("/reserve", async (req, res) => {
   }
 
   try {
+
     const client = await auth.getClient();
-    const sheets = google.sheets({ version: "v4", auth: client });
+
+    const sheets = google.sheets({
+      version: "v4",
+      auth: client
+    });
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
       range: `${SHEET_NAME}!A:D`,
       valueInputOption: "RAW",
       requestBody: {
-        values: [[new Date().toISOString(), name, email, message]]
+        values: [
+          [new Date().toISOString(), name, email, message]
+        ]
       }
     });
 
-    return res.status(200).json({ success: true });
+    res.json({ success: true });
 
   } catch (error) {
-    console.error("Sheet Error:", error);
-    return res.status(500).json({ error: "Failed to save to sheet" });
+
+    console.error("Google Sheets Error:", error);
+
+    res.status(500).json({
+      error: "Failed to save reservation"
+    });
+
   }
+
 });
 
 /* =========================
@@ -93,4 +129,3 @@ app.post("/reserve", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
