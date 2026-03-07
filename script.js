@@ -5,7 +5,6 @@ let current = 0;
 let isAnimating = false;
 
 /* INITIALIZE FIRST PAGE */
-
 updatePages();
 
 /* UPDATE PAGE POSITIONS */
@@ -23,7 +22,6 @@ page.classList.remove('active','prev');
 if(index === current){
 page.classList.add('active');
 }
-
 else if(index < current){
 page.classList.add('prev');
 }
@@ -43,35 +41,27 @@ isAnimating = false;
 /* NEXT PAGE */
 
 function nextPage(){
-
 if(current < pages.length - 1){
 current++;
 updatePages();
 }
-
 }
 
 /* PREVIOUS PAGE */
 
 function prevPage(){
-
 if(current > 0){
 current--;
 updatePages();
 }
-
 }
 
 /* KEYBOARD NAVIGATION */
 
 document.addEventListener('keydown',(e)=>{
-
 if(e.key === "ArrowRight") nextPage();
-
 if(e.key === "ArrowLeft") prevPage();
-
 });
-
 
 /* MOBILE SWIPE SUPPORT */
 
@@ -81,19 +71,14 @@ let touchEndX = 0;
 let touchEndY = 0;
 
 document.addEventListener("touchstart",(e)=>{
-
 touchStartX = e.changedTouches[0].screenX;
 touchStartY = e.changedTouches[0].screenY;
-
 });
 
 document.addEventListener("touchend",(e)=>{
-
 touchEndX = e.changedTouches[0].screenX;
 touchEndY = e.changedTouches[0].screenY;
-
 handleSwipe();
-
 });
 
 function handleSwipe(){
@@ -103,26 +88,21 @@ const swipeY = touchEndY - touchStartY;
 
 const swipeThreshold = 60;
 
-/* prevent vertical scroll triggering swipe */
-
 if(Math.abs(swipeY) > Math.abs(swipeX)) return;
-
-/* swipe left → next page */
 
 if(swipeX < -swipeThreshold){
 nextPage();
 }
 
-/* swipe right → previous page */
-
 if(swipeX > swipeThreshold){
 prevPage();
 }
 
+}
 
-
-
-/* RESERVATION FORM SUBMIT */
+/* =========================
+   RESERVATION FORM SUBMIT
+========================= */
 
 const scriptURL = "https://kurocrowe-github-io.onrender.com/reserve";
 const form = document.getElementById("reservationForm");
@@ -154,24 +134,16 @@ body: JSON.stringify(data)
 const result = await response.json();
 
 if(result.success){
-
 alert("Reservation sent successfully!");
 form.reset();
-
 }else{
-
 alert("Server error: " + result.error);
-
 }
 
 }catch(err){
 
 console.error("Fetch error:",err);
 alert("Could not connect to reservation server.");
-
-}
-
-});
 
 }
 
