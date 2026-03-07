@@ -127,38 +127,53 @@ prevPage();
 const scriptURL = "https://kurocrowe-github-io.onrender.com/reserve";
 const form = document.getElementById("reservationForm");
 
-if(form){
+if (form) {
 
-form.addEventListener("submit", function(e){
+form.addEventListener("submit", async function(e){
 
 e.preventDefault();
 
-const formData = new FormData(this);
+const formData = new FormData(form);
 
-fetch(scriptURL,{
-method:"POST",
+const data = {
+name: formData.get("name"),
+email: formData.get("email"),
+message: formData.get("message")
+};
+
+try {
+
+const response = await fetch(scriptURL,{
+method: "POST",
 headers:{
 "Content-Type":"application/json"
 },
-body:JSON.stringify({
-name:formData.get("name"),
-email:formData.get("email"),
-message:formData.get("message")
-})
-})
-.then(res => res.json())
-.then(() => {
+body: JSON.stringify(data)
+});
+
+const result = await response.json();
+
+if(result.success){
 
 alert("Reservation sent successfully!");
 form.reset();
 
-})
-.catch(err => {
+}else{
 
-alert("Error submitting form.");
-console.error(err);
+alert("Server error: " + result.error);
+
+}
+
+}catch(err){
+
+console.error("Fetch error:",err);
+alert("Could not connect to reservation server.");
+
+}
 
 });
+
+}
 
 });
 
