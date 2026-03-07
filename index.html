@@ -150,13 +150,27 @@ style="background-image:url('https://images.unsplash.com/photo-1546069901-ba9599
 
 <h1>Reserve Your Table</h1>
 
-<form id="reservationForm" class="reservation-form">
+<form id="reservationForm" class="reservation-form" method="POST">
 
-<input type="text" id="name" placeholder="Your Name" required>
+<input 
+type="text"
+id="name"
+name="name"
+placeholder="Your Name"
+autocomplete="name"
+required>
 
-<input type="email" id="email" placeholder="Your Email" required>
+<input 
+type="email"
+id="email"
+name="email"
+placeholder="Your Email"
+autocomplete="email"
+required>
 
-<textarea id="message"
+<textarea 
+id="message"
+name="message"
 placeholder="Reservation message (date, time, guests)"
 required></textarea>
 
@@ -218,7 +232,7 @@ TikTok (Coming Soon)
 <button class="nav-button nav-left" onclick="prevPage()">❮</button>
 <button class="nav-button nav-right" onclick="nextPage()">❯</button>
 
-<div class="page-indicator" id="indicator">Page 1 of 5</div>
+<div class="page-indicator" id="indicator">Page 1 of 6</div>
 
 </div>
 
