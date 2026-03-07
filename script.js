@@ -119,7 +119,7 @@ if(swipeX > swipeThreshold){
 prevPage();
 }
 
-}
+
 
 
 /* RESERVATION FORM SUBMIT */
