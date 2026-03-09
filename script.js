@@ -203,3 +203,19 @@ alert("Could not connect to reservation server.");
 });
 
 }
+document.addEventListener("click", function(e){
+
+const menu = document.getElementById("menu");
+const hamburger = document.querySelector(".hamburger");
+
+/* if menu is open and click is outside */
+
+if(menu.classList.contains("open") &&
+!menu.contains(e.target) &&
+!hamburger.contains(e.target)){
+
+menu.classList.remove("open");
+
+}
+
+});
