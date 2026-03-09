@@ -4,7 +4,8 @@ const indicator = document.getElementById('indicator');
 let current = 0;
 let isAnimating = false;
 
-/* INITIALIZE FIRST PAGE */
+/* INITIALIZE */
+
 updatePages();
 
 /* UPDATE PAGE POSITIONS */
@@ -22,6 +23,7 @@ page.classList.remove('active','prev');
 if(index === current){
 page.classList.add('active');
 }
+
 else if(index < current){
 page.classList.add('prev');
 }
@@ -41,26 +43,50 @@ isAnimating = false;
 /* NEXT PAGE */
 
 function nextPage(){
-if(current < pages.length - 1){
+
 current++;
-updatePages();
+
+if(current >= pages.length){
+current = 0;
 }
+
+updatePages();
+
 }
 
 /* PREVIOUS PAGE */
 
 function prevPage(){
-if(current > 0){
+
 current--;
-updatePages();
+
+if(current < 0){
+current = pages.length - 1;
 }
+
+updatePages();
+
+}
+
+/* GO TO PAGE (for hamburger menu) */
+
+function goToPage(index){
+
+if(index < 0 || index >= pages.length) return;
+
+current = index;
+
+updatePages();
+
 }
 
 /* KEYBOARD NAVIGATION */
 
 document.addEventListener('keydown',(e)=>{
+
 if(e.key === "ArrowRight") nextPage();
 if(e.key === "ArrowLeft") prevPage();
+
 });
 
 /* MOBILE SWIPE SUPPORT */
@@ -71,14 +97,19 @@ let touchEndX = 0;
 let touchEndY = 0;
 
 document.addEventListener("touchstart",(e)=>{
+
 touchStartX = e.changedTouches[0].screenX;
 touchStartY = e.changedTouches[0].screenY;
+
 });
 
 document.addEventListener("touchend",(e)=>{
+
 touchEndX = e.changedTouches[0].screenX;
 touchEndY = e.changedTouches[0].screenY;
+
 handleSwipe();
+
 });
 
 function handleSwipe(){
@@ -88,14 +119,32 @@ const swipeY = touchEndY - touchStartY;
 
 const swipeThreshold = 60;
 
+/* ignore vertical swipe */
+
 if(Math.abs(swipeY) > Math.abs(swipeX)) return;
+
+/* swipe left */
 
 if(swipeX < -swipeThreshold){
 nextPage();
 }
 
+/* swipe right */
+
 if(swipeX > swipeThreshold){
 prevPage();
+}
+
+}
+
+/* HAMBURGER MENU */
+
+function toggleMenu(){
+
+const menu = document.getElementById("menu");
+
+if(menu){
+menu.classList.toggle("open");
 }
 
 }
@@ -107,7 +156,7 @@ prevPage();
 const scriptURL = "https://kurocrowe-github-io.onrender.com/reserve";
 const form = document.getElementById("reservationForm");
 
-if (form) {
+if(form){
 
 form.addEventListener("submit", async function(e){
 
@@ -121,23 +170,27 @@ email: formData.get("email"),
 message: formData.get("message")
 };
 
-try {
+try{
 
 const response = await fetch(scriptURL,{
-method: "POST",
+method:"POST",
 headers:{
 "Content-Type":"application/json"
 },
-body: JSON.stringify(data)
+body:JSON.stringify(data)
 });
 
 const result = await response.json();
 
 if(result.success){
+
 alert("Reservation sent successfully!");
 form.reset();
+
 }else{
+
 alert("Server error: " + result.error);
+
 }
 
 }catch(err){
