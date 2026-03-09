@@ -256,7 +256,7 @@ width:90%;
 .hamburger{
 position:fixed;
 top:20px;
-left:20px;
+right:20px;
 font-size:28px;
 cursor:pointer;
 z-index:2000;
@@ -268,12 +268,10 @@ border-radius:8px;
 box-shadow:0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* Side menu */
-
 .menu{
 position:fixed;
 top:0;
-left:-250px;
+right:-250px;
 width:220px;
 height:100vh;
 background:white;
@@ -283,23 +281,15 @@ flex-direction:column;
 padding-top:80px;
 gap:20px;
 
-transition:left .3s ease;
+transition:right .3s ease;
 
-box-shadow:4px 0 15px rgba(0,0,0,0.2);
+box-shadow:-4px 0 15px rgba(0,0,0,0.2);
 
 z-index:1500;
 }
 
-.menu a{
-padding:12px 20px;
-font-weight:600;
-cursor:pointer;
-}
-
-/* open state */
-
 .menu.open{
-left:0;
+right:0;
 }
 @media (max-width:768px){
 
