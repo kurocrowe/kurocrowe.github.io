@@ -304,8 +304,6 @@ margin-top:15px;
 align-items:center;
 }
 
-
-
 .menu-social a{
 display:flex;
 align-items:center;
@@ -318,8 +316,6 @@ transition:0.25s;
 .menu-social img{
 width:26px;
 height:26px;
-
-  filter:invert(1);
 }
 
 /* HOVER */
