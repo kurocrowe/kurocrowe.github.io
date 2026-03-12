@@ -23,17 +23,53 @@ font-size:24px;
 letter-spacing:4px;
 }
 
+
+
+/* NAV DEFAULT (desktop) */
+
+nav{
+display:flex;
+gap:30px;
+}
+
 nav a{
-margin-left:25px;
 text-decoration:none;
 color:black;
 font-weight:500;
 }
 
+/* HAMBURGER */
+
 .hamburger{
-font-size:30px;
+font-size:28px;
 cursor:pointer;
+display:none;
+}
+
+/* MOBILE */
+
+@media (max-width:900px){
+
+nav{
+position:absolute;
+top:70px;
+right:40px;
+background:white;
+flex-direction:column;
+gap:15px;
+padding:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+display:none;
+}
+
+nav.open{
+display:flex;
+}
+
+.hamburger{
 display:block;
+}
+
 }
 .hero{
 height:100vh;
