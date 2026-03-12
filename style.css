@@ -39,15 +39,12 @@ right:0;
 width:260px;
 height:100vh;
 background:white;
-
 display:flex;
 flex-direction:column;
 padding:120px 40px;
 gap:25px;
-
 transform:translateX(100%);
 transition:transform 0.35s ease;
-
 z-index:1500;
 }
 
@@ -56,11 +53,14 @@ z-index:1500;
 nav.open{
 transform:translateX(0);
 }
+
 nav a{
 text-decoration:none;
 color:black;
 font-size:18px;
 }
+
+/* HAMBURGER */
 
 .hamburger{
 position:fixed;
@@ -80,7 +80,9 @@ width:100%;
 height:4px;
 background:black;
 border-radius:2px;
+transition:0.3s;
 }
+
 /* ANIMATION */
 
 .hamburger.active span:nth-child(1){
@@ -115,6 +117,7 @@ z-index:1100;
 opacity:1;
 pointer-events:auto;
 }
+
 /* HERO */
 
 .hero{
@@ -252,6 +255,9 @@ color:white;
 border:none;
 cursor:pointer;
 }
+
+/* MAP */
+
 .map-container{
 max-width:700px;
 margin:40px auto;
@@ -265,7 +271,8 @@ width:100%;
 height:350px;
 border:0;
 }
-/* MENU LINKS CONTAINER */
+
+/* MENU LINKS */
 
 .menu-links{
 display:flex;
@@ -273,8 +280,6 @@ flex-direction:column;
 gap:18px;
 margin-top:40px;
 }
-
-/* MENU LINKS */
 
 .menu-links a{
 text-decoration:none;
@@ -291,21 +296,6 @@ opacity:0.6;
 }
 
 /* SOCIAL ICONS */
-.menu-social{
-margin-top:auto;
-display:flex;
-gap:18px;
-padding-top:30px;
-border-top:1px solid #eee;
-}
-
-.menu-social a{
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-/* SOCIAL ICONS */
 
 .menu-social{
 margin-top:auto;
@@ -313,7 +303,6 @@ display:flex;
 gap:22px;
 padding-top:30px;
 border-top:1px solid #eee;
-justify-content:flex-start;
 }
 
 .menu-social a{
@@ -332,12 +321,13 @@ object-fit:contain;
 transition:0.25s ease;
 }
 
-/* HOVER EFFECT */
+/* HOVER */
 
 .menu-social a:hover img{
 transform:scale(1.2);
 opacity:0.7;
 }
+
 /* MOBILE */
 
 @media(max-width:900px){
