@@ -1,20 +1,26 @@
-
-
 const hamburger = document.getElementById("hamburger");
 const nav = document.getElementById("nav");
+const overlay = document.getElementById("overlay");
 
-hamburger.addEventListener("click", function(){
+hamburger.addEventListener("click", () => {
+
+hamburger.classList.toggle("active");
 nav.classList.toggle("open");
+overlay.classList.toggle("active");
+
 });
 
-/* =========================
-   RESERVATION FORM SUBMIT
-========================= */
+overlay.addEventListener("click", () => {
 
-const scriptURL = "https://kurocrowe-github-io.onrender.com/reserve";
+hamburger.classList.remove("active");
+nav.classList.remove("open");
+overlay.classList.remove("active");
+
+});
+
+/* RESERVATION FORM */
+
 const form = document.getElementById("reservationForm");
-
-if(form){
 
 form.addEventListener("submit", async function(e){
 
@@ -30,12 +36,14 @@ message: formData.get("message")
 
 try{
 
-const response = await fetch(scriptURL,{
+const response = await fetch("https://kurocrowe-github-io.onrender.com/reserve",{
+
 method:"POST",
 headers:{
 "Content-Type":"application/json"
 },
 body:JSON.stringify(data)
+
 });
 
 const result = await response.json();
@@ -47,32 +55,13 @@ form.reset();
 
 }else{
 
-alert("Server error: " + result.error);
+alert("Server error");
 
 }
 
 }catch(err){
 
-console.error("Fetch error:",err);
-alert("Could not connect to reservation server.");
-
-}
-
-});
-
-}
-document.addEventListener("click", function(e){
-
-const menu = document.getElementById("nav");
-const hamburger = document.querySelector(".hamburger");
-
-/* if menu is open and click is outside */
-
-if(menu.classList.contains("open") &&
-!menu.contains(e.target) &&
-!hamburger.contains(e.target)){
-
-menu.classList.remove("open");
+alert("Server connection failed");
 
 }
 
