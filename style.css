@@ -305,14 +305,36 @@ align-items:center;
 justify-content:center;
 }
 
+/* SOCIAL ICONS */
+
+.menu-social{
+margin-top:auto;
+display:flex;
+gap:22px;
+padding-top:30px;
+border-top:1px solid #eee;
+justify-content:flex-start;
+}
+
+.menu-social a{
+display:flex;
+align-items:center;
+justify-content:center;
+width:34px;
+height:34px;
+transition:0.25s;
+}
+
 .menu-social img{
 width:26px;
 height:26px;
-filter:invert(0);   /* ensures icon is visible */
-transition:0.2s;
+object-fit:contain;
+transition:0.25s ease;
 }
 
-.menu-social img:hover{
+/* HOVER EFFECT */
+
+.menu-social a:hover img{
 transform:scale(1.2);
 opacity:0.7;
 }
