@@ -2,15 +2,26 @@ const hamburger = document.getElementById("hamburger");
 const nav = document.getElementById("nav");
 const blur = document.getElementById("blur");
 
+/* HAMBURGER MENU */
+
+if(hamburger && nav){
+
 hamburger.addEventListener("click", () => {
 
 hamburger.classList.toggle("active");
 nav.classList.toggle("open");
+
+if(blur){
 blur.classList.toggle("active");
+}
 
 });
 
-/* CLOSE MENU IF CLICK OUTSIDE */
+}
+
+/* CLOSE MENU WHEN CLICKING BLUR */
+
+if(blur){
 
 blur.addEventListener("click", () => {
 
@@ -20,9 +31,13 @@ blur.classList.remove("active");
 
 });
 
+}
+
 /* RESERVATION FORM */
 
 const form = document.getElementById("reservationForm");
+
+if(form){
 
 form.addEventListener("submit", async function(e){
 
@@ -38,15 +53,16 @@ message: formData.get("message")
 
 try{
 
-const response = await fetch("https://kurocrowe-github-io.onrender.com/reserve",{
-
+const response = await fetch(
+"https://kurocrowe-github-io.onrender.com/reserve",
+{
 method:"POST",
 headers:{
 "Content-Type":"application/json"
 },
 body:JSON.stringify(data)
-
-});
+}
+);
 
 const result = await response.json();
 
@@ -68,3 +84,5 @@ alert("Connection failed");
 }
 
 });
+
+}
