@@ -298,12 +298,13 @@ opacity:0.6;
 /* SOCIAL ICONS */
 
 .menu-social{
-margin-top:auto;
 display:flex;
-gap:22px;
-padding-top:30px;
-border-top:1px solid #eee;
+gap:18px;
+margin-top:15px;
+align-items:center;
 }
+
+
 
 .menu-social a{
 display:flex;
