@@ -1,20 +1,22 @@
 const hamburger = document.getElementById("hamburger");
 const nav = document.getElementById("nav");
-const overlay = document.getElementById("overlay");
+const blur = document.getElementById("blur");
 
 hamburger.addEventListener("click", () => {
 
 hamburger.classList.toggle("active");
 nav.classList.toggle("open");
-overlay.classList.toggle("active");
+blur.classList.toggle("active");
 
 });
 
-overlay.addEventListener("click", () => {
+/* CLOSE MENU IF CLICK OUTSIDE */
+
+blur.addEventListener("click", () => {
 
 hamburger.classList.remove("active");
 nav.classList.remove("open");
-overlay.classList.remove("active");
+blur.classList.remove("active");
 
 });
 
@@ -61,7 +63,7 @@ alert("Server error");
 
 }catch(err){
 
-alert("Server connection failed");
+alert("Connection failed");
 
 }
 
