@@ -3,11 +3,9 @@
 const hamburger = document.getElementById("hamburger");
 const nav = document.getElementById("nav");
 
-hamburger.onclick = () => {
-
+hamburger.addEventListener("click", function(){
 nav.classList.toggle("open");
-
-};
+});
 
 /* =========================
    RESERVATION FORM SUBMIT
