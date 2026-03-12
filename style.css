@@ -30,27 +30,32 @@ font-size:24px;
 letter-spacing:4px;
 }
 
-/* NAV PANEL */
+/* NAV MENU */
 
 nav{
 position:fixed;
 top:0;
-right:-260px;
+right:0;
 width:260px;
 height:100vh;
 background:white;
+
 display:flex;
 flex-direction:column;
 padding:120px 40px;
 gap:25px;
-transition:0.35s ease;
+
+transform:translateX(100%);
+transition:transform 0.35s ease;
+
 z-index:1500;
 }
 
-nav.open{
-right:0;
-}
+/* SHOW NAV */
 
+nav.open{
+transform:translateX(0);
+}
 nav a{
 text-decoration:none;
 color:black;
