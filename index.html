@@ -2,178 +2,168 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Kerria Japanese Restaurant Orchard | Sushi & Izakaya Singapore</title>
 
-<meta name="description" content="Kerria Japanese Restaurant at Orchard Road Singapore offers authentic sushi, sashimi, drinks and izakaya dining experience.">
-
-<meta name="keywords" content="Kerria Japanese Restaurant, Japanese Restaurant Orchard Singapore, Sushi Orchard, Izakaya Singapore">
-<!-- OpenGraph SEO -->
-<meta property="og:title" content="Kerria Japanese Restaurant Orchard | Sushi & Izakaya Singapore">
-<meta property="og:description" content="Authentic Japanese izakaya dining in Orchard Road Singapore. Fresh sashimi, sushi and drinks.">
-<meta property="og:image" content="https://keria.live/sakura.png">
-<meta property="og:url" content="https://keria.live">
-<meta property="og:type" content="restaurant">
-
-<!-- Twitter Preview -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Kerria Japanese Restaurant Orchard">
-<meta name="twitter:description" content="Authentic Japanese Izakaya dining in Orchard Singapore.">
-<meta name="twitter:image" content="https://keria.live/sakura.png">
-
- <link rel="canonical" href="https://keria.live/">
- 
 <link rel="stylesheet" href="style.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<!-- Restaurant SEO Schema -->
-<script type="application/ld+json">
-{
- "@context": "https://schema.org",
- "@type": "Restaurant",
- "name": "Kerria Japanese Restaurant",
- "image": "seino_message.jpg",
- "servesCuisine": "Japanese",
- "priceRange": "$$",
- "address": {
-   "@type": "PostalAddress",
-   "streetAddress": "5 Keok Road #B1-28 Cuppage Plaza",
-   "addressLocality": "Singapore",
-   "addressCountry": "SG"
- },
- "founder": {
-   "@type": "Person",
-   "name": "Seino Hatsuho"
- },
- "acceptsReservations": "True"
-}
-</script>
-
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<div class="album-container">
-<div class="hamburger" onclick="toggleMenu()">
+<header>
+
+<div class="logo">
+KERRIA
+</div>
+
+<nav id="nav">
+
+<a href="#concept">Concept</a>
+<a href="#menu">Menu</a>
+<a href="#gallery">Gallery</a>
+<a href="#info">Location</a>
+
+</nav>
+
+<div class="hamburger" id="hamburger">
 ☰
 </div>
 
-<div class="menu" id="menu">
-<a onclick="goToPage(0)">Home</a>
-<a onclick="goToPage(1)">Owner</a>
-<a onclick="goToPage(2)">Sashimi</a>
-<a onclick="goToPage(3)">Drinks</a>
-<a onclick="goToPage(4)">Reservation</a>
-<a onclick="goToPage(5)">Locate Us</a>
+</header>
+
+<section class="hero">
+
+<div class="hero-content">
+
+<h1>KERRIA</h1>
+
+<p>Japanese Izakaya & Sushi Bar</p>
+
+<div class="hero-buttons">
+
+<a href="#menu" class="btn">View Menu</a>
+<a href="#reservation" class="btn-outline">Reserve Table</a>
+
 </div>
-<!-- PAGE 1 -->
-<div class="page active">
 
-<div class="image-section"
-style="background-image:url('sakura.png')"></div>
+</div>
 
-<div class="content-section">
+</section>
 
-<h1>Kerria Japanese Restaurant</h1>
-<h2>Orchard Road, Singapore</h2>
+
+<section id="concept" class="concept">
+
+<div class="concept-container">
+
+<div class="concept-image"
+style="background-image:url('https://images.unsplash.com/photo-1553621042-f6e147245754'); background-size:cover; background-position:center;">
+</div>
+
+<div class="concept-text">
+
+<h2>Our Concept</h2>
 
 <p>
-Experience authentic Japanese dining in Orchard.
-Fresh sushi, sashimi and traditional izakaya dishes.
-</p>
-
-</div>
-</div>
-
-<!-- PAGE 2 OWNER -->
-
-<div class="page">
-
-<div class="card" style="max-width:800px; margin:auto; text-align:center;">
-    <img src="seino_message.jpg" 
-         alt="Seino Hatsuho owner of Kerria Izakaya Orchard Singapore"
-         style="width:200px; border-radius:50%; margin-bottom:16px;">
-</div>
-
-<div class="content-section">
-
-<h1>Meet the Proprietress</h1>
-<h2>Seino Hatsuho</h2>
-
-<p>
-Originally from Sapporo, Hokkaido, she trained in Japanese cuisine
-before moving to Singapore where she has lived for over 20 years.
+Inspired by traditional Japanese izakaya culture,
+Kerria brings authentic sushi, sashimi and drinks
+to Orchard Road.
 </p>
 
 <p>
-In September 2012 she opened Sakana Keria in Orchard
-to bring authentic Japanese izakaya culture to Singapore.
+A place where friends gather, drinks flow,
+and every dish is crafted with precision.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section id="menu" class="menu">
+
+<h2>Signature Dishes</h2>
+
+<div class="menu-grid">
+
+<div class="dish">
+<img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351">
+<span>Sushi Platter</span>
+</div>
+
+<div class="dish">
+<img src="https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56">
+<span>Salmon Sashimi</span>
+</div>
+
+<div class="dish">
+<img src="https://images.unsplash.com/photo-1604908176997-431ab2bfa6c7">
+<span>Izakaya Pasta</span>
+</div>
+
+<div class="dish">
+<img src="https://images.unsplash.com/photo-1611143669185-af224c5e3252">
+<span>Yakitori</span>
+</div>
+
+<div class="dish">
+<img src="https://images.unsplash.com/photo-1604908177522-040fdb4f8a9b">
+<span>Ramen</span>
+</div>
+
+<div class="dish">
+<img src="https://images.unsplash.com/photo-1544145945-f90425340c7e">
+<span>Japanese Cocktails</span>
+</div>
+
+</div>
+
+</section>
+
+
+<section id="gallery" class="gallery">
+
+<h2>Gallery</h2>
+
+<div class="gallery-grid">
+
+<img src="https://images.unsplash.com/photo-1559339352-11d035aa65de">
+<img src="https://images.unsplash.com/photo-1552566626-52f8b828add9">
+<img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4">
+<img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c">
+
+</div>
+
+</section>
+
+
+<section id="info" class="info">
+
+<h2>Visit Us</h2>
+
+<p>
+Kerria Japanese Restaurant<br>
+5 Koek Road<br>
+Cuppage Plaza #B1-28<br>
+Singapore
 </p>
 
 <p>
-<em>
-“My grandparents ran an izakaya in Hokkaido.
-We hope to continue serving heartfelt Japanese cuisine here in Orchard.”
-</em>
+Lunch: 11:30am – 3pm<br>
+Dinner: 5:30pm – 10:30pm
 </p>
 
-</div>
-</div>
+</section>
 
-<!-- PAGE 3 SASHIMI -->
 
-<div class="page">
+<section id="reservation" class="reservation">
 
-<div class="image-section"
-style="background-image:url('https://images.unsplash.com/photo-1617196034183-421b4917c92d')"></div>
-
-<div class="content-section">
-
-<h1>Fresh Sashimi</h1>
-<h2>Premium Imported Seafood</h2>
-
-<p>
-Daily flown-in seafood including salmon, otoro and hamachi
-prepared by expert chefs.
-</p>
-
-</div>
-</div>
-
-<!-- PAGE 4 DRINKS -->
-
-<div class="page">
-
-<div class="image-section"
-style="background-image:url('https://images.unsplash.com/photo-1544148103-0773bf10d330')"></div>
-
-<div class="content-section">
-
-<h1>Japanese Drinks</h1>
-<h2>Sake · Beer · Highballs</h2>
-
-<p>
-Enjoy Japanese sake, beer and classic highballs
-to complement your izakaya dining experience.
-</p>
-
-</div>
-</div>
-
-<!-- PAGE 5 RESERVATION -->
-
-<div class="page">
-
-<div class="image-section"
-style="background-image:url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c')"></div>
-
-<div class="content-section">
-
-<h1>Reserve Your Table</h1>
+<h2>Reserve Table</h2>
 
 <form id="reservationForm" class="reservation-form" method="POST">
 
@@ -203,63 +193,15 @@ required></textarea>
 
 </form>
 
-<div id="formMessage"></div>
-
-</div>
-</div>
+</section>
 
 
-<!-- PAGE 6 LOCATE US -->
+<footer>
 
-<div class="page">
+<p>© 2026 Kerria Japanese Restaurant</p>
 
-<div class="image-section"
-style="background-image:url('https://images.unsplash.com/photo-1505764706515-aa95265c5abc')"></div>
+</footer>
 
-<div class="content-section">
-<h1>Locate Us</h1>
-
-<p>
-5 Keok Road, #B1-28 Cuppage Plaza,<br>
-Singapore
-</p>
-
-<iframe
-src="https://www.google.com/maps?q=5%20Keok%20Road%20Cuppage%20Plaza%20Singapore&output=embed"
-width="100%"
-height="250"
-style="border:0; max-width:500px;"
-allowfullscreen=""
-loading="lazy">
-</iframe>
-
-<br>
-
-<div class="social-links" style="margin-top:20px; display:flex; gap:20px; align-items:center; justify-content:center;">
-
-<a href="https://www.instagram.com/seinohatsuho/" target="_blank" style="text-decoration:none; display:flex; align-items:center; gap:8px; font-weight:600; color:#e1306c;">
-<img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width:28px; height:28px;">
-Instagram
-</a>
-
-<a href="#" target="_blank" style="text-decoration:none; display:flex; align-items:center; gap:8px; font-weight:600; color:#000;">
-<img src="tiktok.png"
-alt="TikTok"
-style="width:28px;height:28px;">
-TikTok (Coming Soon)
-</a>
-
-</div>
-
-</div>
-</div>
-
-<button class="nav-button nav-left" onclick="prevPage()">❮</button>
-<button class="nav-button nav-right" onclick="nextPage()">❯</button>
-
-<div class="page-indicator" id="indicator">Page 1 of 6</div>
-
-</div>
 
 <script src="script.js"></script>
 
