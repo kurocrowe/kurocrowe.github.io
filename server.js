@@ -82,9 +82,9 @@ app.post("/reserve", async (req, res) => {
 
   console.log("Incoming reservation:", req.body);
 
-  const { name, email, message } = req.body;
+  const { name, email, phone, message } = req.body;
 
-  if (!name || !email || !message) {
+  if (!name || !email || !phone || !message) {
     return res.status(400).json({ error: "All fields required" });
   }
 
@@ -103,7 +103,7 @@ app.post("/reserve", async (req, res) => {
       valueInputOption: "RAW",
       requestBody: {
         values: [
-          [new Date().toISOString(), name, email, message]
+          [new Date().toISOString(), name, email, phone, message]
         ]
       }
     });
